@@ -26,7 +26,7 @@ public class Vehicule {
 	@Column(length = 50, nullable = false)
 	String catregorie;
 
-	@Column(length = 255, nullable = false)
+	@Column(name="url_image", length = 255, nullable = false)
 	String urlImage;
 
 	public int getId() {

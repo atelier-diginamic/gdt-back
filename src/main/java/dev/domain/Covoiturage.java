@@ -1,9 +1,12 @@
-package dev.entity;
+package dev.domain;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -14,6 +17,10 @@ import javax.persistence.TemporalType;
 @Entity
 public class Covoiturage {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int id;
+	
 	@Temporal(TemporalType.DATE)
 	Date date;
 
@@ -31,11 +38,11 @@ public class Covoiturage {
 
 	@OneToOne
 	@JoinColumn(name = "id_collaborateur")
-	Collaborateur chauffeur;
+	Collegue chauffeur;
 
 	@ManyToMany
 	@JoinTable(name = "fk_covoiturage_collaborateur", joinColumns = @JoinColumn(name = "id_covoiturage"), inverseJoinColumns = @JoinColumn(name = "id_collaborateur"))
-	List<Collaborateur> passagers;
+	List<Collegue> passagers;
 
 	public Date getDate() {
 		return date;
@@ -69,19 +76,19 @@ public class Covoiturage {
 		this.vehicule = vehicule;
 	}
 
-	public Collaborateur getChauffeur() {
+	public Collegue getChauffeur() {
 		return chauffeur;
 	}
 
-	public void setChauffeur(Collaborateur chauffeur) {
+	public void setChauffeur(Collegue chauffeur) {
 		this.chauffeur = chauffeur;
 	}
 
-	public List<Collaborateur> getPassagers() {
+	public List<Collegue> getPassagers() {
 		return passagers;
 	}
 
-	public void setPassagers(List<Collaborateur> passagers) {
+	public void setPassagers(List<Collegue> passagers) {
 		this.passagers = passagers;
 	}
 

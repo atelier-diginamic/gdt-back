@@ -1,41 +1,38 @@
-package dev.domain;
+package dev.controller.vm;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
-public class Vehicule {
+public class VehiculeVM {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	Integer id = null;
 
-	@Column(length = 50, nullable = false)
 	String marque;
 
-	@Column(length = 50, nullable = false)
 	String model;
 
-	@Column(length = 2, nullable = false)
 	int nbr_places;
 
-	@Column(length = 25, nullable = false)
 	String immatriculation;
 
-	@Column(length = 50, nullable = false)
 	String categorie;
 
-	@Column(name="url_image", length = 255, nullable = false)
 	String urlImage;
 
-	public int getId() {
+	public VehiculeVM(int id, String marque, String model, int nbr_places, String immatriculation, String categorie,
+			String urlImage) {
+		this.id = id;
+		this.marque = marque;
+		this.model = model;
+		this.nbr_places = nbr_places;
+		this.immatriculation = immatriculation;
+		this.categorie = categorie;
+		this.urlImage = urlImage;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -75,8 +72,8 @@ public class Vehicule {
 		return categorie;
 	}
 
-	public void setCategorie(String catregorie) {
-		this.categorie = catregorie;
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
 	}
 
 	public String getUrlImage() {
@@ -86,5 +83,5 @@ public class Vehicule {
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
-
+	
 }

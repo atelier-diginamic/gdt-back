@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.controller.vm.CollegueAddVm;
 import dev.controller.vm.CollegueVM;
 import dev.controller.vm.LieuVM;
 import dev.domain.Collegue;
@@ -51,20 +53,43 @@ public class CollegueController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> createCollegue(@Valid @RequestBody CollegueVM collegueVm, BindingResult resValid) {
-		if (!resValid.hasErrors()) {		
+	@Transactional
+	public ResponseEntity<?> createCollegue(@Valid @RequestBody CollegueAddVm collegueAddVm, BindingResult resValid) {
+		if (!resValid.hasErrors()) {	
+			Collegue nouveauCollegue = new Collegue();
+			nouveauCollegue.setNom(collegueAddVm.getNom());
+			nouveauCollegue.setPrenom(collegueAddVm.getPrenom());
+			nouveauCollegue.setEmail(collegueAddVm.getEmail());
+			//nouveauCollegue.setMotDePasse(collegueAddVm.getMotDePasse());
 			
-		}
-			/*Collegue nouveauCollegue = new Collegue();
-			nouveauCollegue.setNom(collegueVm.getNom());
-			nouveauCollegue.setPrenom(collegueVm.getPrenom());
-			nouveauCollegue.setEmail(collegueVm.getEmail());
-			nouveauCollegue.setRoles(collegueVm.getRoles());
-			nouveauCollegue.setId(this.collegueRepo.save(nouveauCollegue).getId());
+	
+			
+			List<RoleCollegue>aze=new ArrayList<RoleCollegue>();
+			for (Role role : collegueAddVm.getRoles()) {
+				aze.add(new RoleCollegue(nouveauCollegue,role));
+			}
+			nouveauCollegue.setRoles(aze);
+
+			
+			
+			
+			nouveauCollegue=this.collegueRepo.save(nouveauCollegue);
+			
+
 			return ResponseEntity.ok().body(nouveauCollegue);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		}else {
 			return ResponseEntity.badRequest().body(resValid.getAllErrors());
-		}*/
+		}
 	}
 	
 }

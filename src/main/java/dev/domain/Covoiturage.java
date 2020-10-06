@@ -92,4 +92,10 @@ public class Covoiturage {
 		this.passagers = passagers;
 	}
 
+	@Override
+	public String toString() {
+		return "Covoiturage [id=" + id + ", date=" + date + ", depart=" + depart + ", destination=" + destination
+				+ ", vehicule=" + vehicule + ", chauffeur=" + chauffeur + ", passagers=" + passagers + "]";
+	}
+
 }

@@ -61,7 +61,7 @@ public class CollegueController {
 			nouveauCollegue.setNom(collegueAddVm.getNom());
 			nouveauCollegue.setPrenom(collegueAddVm.getPrenom());
 			nouveauCollegue.setEmail(collegueAddVm.getEmail());
-			nouveauCollegue.setMotDePasse(this.passwordEncoder.encode(collegueAddVm.getMotDePasse()));
+			nouveauCollegue.setMotDePasse(collegueAddVm.getMotDePasse());
 			List<RoleCollegue> listeRoleCollegues = new ArrayList<RoleCollegue>();
 			
 				

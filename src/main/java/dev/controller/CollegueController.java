@@ -1,14 +1,15 @@
 package dev.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.vm.CollegueAddVm;
 import dev.controller.vm.CollegueVM;
-import dev.controller.vm.LieuVM;
 import dev.domain.Collegue;
-import dev.domain.Lieu;
 import dev.domain.Role;
 import dev.domain.RoleCollegue;
 import dev.repository.CollegueRepo;
@@ -31,65 +30,51 @@ import dev.repository.CollegueRepo;
 @RequestMapping("/collegue")
 public class CollegueController {
 	private CollegueRepo collegueRepo;
+	private PasswordEncoder passwordEncoder;
 
-	public CollegueController(CollegueRepo collegueRepo) {
+	public CollegueController(CollegueRepo collegueRepo, PasswordEncoder passwordEncoder) {
 		this.collegueRepo = collegueRepo;
+		this.passwordEncoder = passwordEncoder;
 	}
-	
+
 	@GetMapping
 	public List<Collegue> getAll() {
 		return this.collegueRepo.findAll();
 	}
-	
+
 	@GetMapping(params = "id")
 	public ResponseEntity<?> getById(Long id) {
 		Optional<Collegue> collegue = this.collegueRepo.findById(id);
-		
+
 		if (collegue.isPresent()) {
 			return ResponseEntity.ok().body(collegue.get());
 		} else {
 			return ResponseEntity.badRequest().body("donnée invalide");
 		}
 	}
-	
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> createCollegue(@Valid @RequestBody CollegueAddVm collegueAddVm, BindingResult resValid) {
-		if (!resValid.hasErrors()) {	
+		if (!resValid.hasErrors()) {
 			Collegue nouveauCollegue = new Collegue();
 			nouveauCollegue.setNom(collegueAddVm.getNom());
 			nouveauCollegue.setPrenom(collegueAddVm.getPrenom());
 			nouveauCollegue.setEmail(collegueAddVm.getEmail());
-			//nouveauCollegue.setMotDePasse(collegueAddVm.getMotDePasse());
-			
-	
-			
-			List<RoleCollegue>aze=new ArrayList<RoleCollegue>();
+			nouveauCollegue.setMotDePasse(this.passwordEncoder.encode(collegueAddVm.getMotDePasse()));
+			List<RoleCollegue> listeRoleCollegues = new ArrayList<RoleCollegue>();
 			for (Role role : collegueAddVm.getRoles()) {
-				aze.add(new RoleCollegue(nouveauCollegue,role));
+				listeRoleCollegues.add(new RoleCollegue(nouveauCollegue, role));
 			}
-			nouveauCollegue.setRoles(aze);
+			nouveauCollegue.setRoles(listeRoleCollegues);
+			nouveauCollegue = this.collegueRepo.save(nouveauCollegue);
+			CollegueVM collegueVm = new CollegueVM(nouveauCollegue);
 
-			
-			
-			
-			nouveauCollegue=this.collegueRepo.save(nouveauCollegue);
-			
+			return ResponseEntity.ok().body(collegueVm);
 
-			return ResponseEntity.ok().body(nouveauCollegue);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		}else {
+		} else {
 			return ResponseEntity.badRequest().body(resValid.getAllErrors());
 		}
 	}
-	
+
 }

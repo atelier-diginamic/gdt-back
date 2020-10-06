@@ -64,11 +64,11 @@ public class CollegueController {
 			
 	
 			
-			List<RoleCollegue>aze=new ArrayList<RoleCollegue>();
+			List<RoleCollegue>listRole=new ArrayList<RoleCollegue>();
 			for (Role role : collegueAddVm.getRoles()) {
-				aze.add(new RoleCollegue(nouveauCollegue,role));
+				listRole.add(new RoleCollegue(nouveauCollegue,role));
 			}
-			nouveauCollegue.setRoles(aze);
+			nouveauCollegue.setRoles(listRole);
 
 			
 			
@@ -76,7 +76,7 @@ public class CollegueController {
 			nouveauCollegue=this.collegueRepo.save(nouveauCollegue);
 			
 
-			return ResponseEntity.ok().body(nouveauCollegue);
+			return ResponseEntity.ok().body(new CollegueVM(nouveauCollegue));
 		
 		
 		

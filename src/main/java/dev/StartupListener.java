@@ -1,12 +1,14 @@
 package dev;
 
 import dev.domain.Collegue;
+import dev.domain.Covoiturage;
 import dev.domain.Lieu;
 import dev.domain.Role;
 import dev.domain.RoleCollegue;
 import dev.domain.Vehicule;
 import dev.domain.Version;
 import dev.repository.CollegueRepo;
+import dev.repository.CovoiturageRepository;
 import dev.repository.LieuRepository;
 import dev.repository.VehiculeRepo;
 import dev.repository.VersionRepo;
@@ -16,7 +18,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Code de démarrage de l'application. Insertion de jeux de données.
@@ -30,16 +35,18 @@ public class StartupListener {
 	private CollegueRepo collegueRepo;
 	private LieuRepository lieuRepo;
 	private VehiculeRepo vehiculeRepo;
+	private CovoiturageRepository covoiturageRepo;
 
 	public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo,
 			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo, LieuRepository lieuRepo,
-			VehiculeRepo vehiculeRepo) {
+			VehiculeRepo vehiculeRepo, CovoiturageRepository covoiturageRepo) {
 		this.appVersion = appVersion;
 		this.versionRepo = versionRepo;
 		this.passwordEncoder = passwordEncoder;
 		this.collegueRepo = collegueRepo;
 		this.lieuRepo = lieuRepo;
 		this.vehiculeRepo = vehiculeRepo;
+		this.covoiturageRepo = covoiturageRepo;
 	}
 
 	@EventListener(ContextRefreshedEvent.class)
@@ -89,10 +96,18 @@ public class StartupListener {
 		vehicule1.setImmatriculation("IMMAT-123");
 		vehicule1.setMarque("Ferrari");
 		vehicule1.setModel("Clio");
-		vehicule1.setModel("Citadine");
+		vehicule1.setCategorie("Citadine");
 		vehicule1.setNbr_places(3);
 		vehicule1.setUrlImage("image");
 		this.vehiculeRepo.save(vehicule1);
-	}
 
+		Covoiturage covoiturage = new Covoiturage();
+		covoiturage.setDate(new Date());
+		covoiturage.setDepart(lieu1);
+		covoiturage.setDestination(lieu2);
+		covoiturage.setVehicule(vehicule1);
+		covoiturage.setChauffeur(col1);
+		covoiturage.setPassagers(new ArrayList<Collegue>());
+		this.covoiturageRepo.save(covoiturage);
+	}
 }

@@ -3,6 +3,7 @@ package dev.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,7 @@ public class VehiculeController {
 	}
 	
 	// ajout d'un vehicule
+	@Transactional
 	@PostMapping
 	public ResponseEntity<?> createVehicule(@Valid @RequestBody VehiculeVM vehiculeVm, BindingResult resValid){
 		if (!resValid.hasErrors()) {

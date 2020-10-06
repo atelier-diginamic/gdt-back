@@ -63,12 +63,15 @@ public class CollegueController {
 			nouveauCollegue.setEmail(collegueAddVm.getEmail());
 			nouveauCollegue.setMotDePasse(this.passwordEncoder.encode(collegueAddVm.getMotDePasse()));
 			List<RoleCollegue> listeRoleCollegues = new ArrayList<RoleCollegue>();
+			
+				
 			for (Role role : collegueAddVm.getRoles()) {
 				listeRoleCollegues.add(new RoleCollegue(nouveauCollegue, role));
 			}
 			nouveauCollegue.setRoles(listeRoleCollegues);
 			nouveauCollegue = this.collegueRepo.save(nouveauCollegue);
 			CollegueVM collegueVm = new CollegueVM(nouveauCollegue);
+
 
 			return ResponseEntity.ok().body(collegueVm);
 

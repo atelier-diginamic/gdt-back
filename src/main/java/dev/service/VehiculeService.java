@@ -10,6 +10,7 @@ import dev.controller.vm.VehiculeVM;
 import dev.controller.vm.VehiculeVMResponse;
 import dev.domain.Vehicule;
 import dev.exception.vehiculeException;
+
 import dev.repository.VehiculeRepo;
 
 @Service
@@ -20,6 +21,7 @@ public class VehiculeService {
 	public VehiculeService(VehiculeRepo vehiculeRepo) {
 		this.vehiculeRepo = vehiculeRepo;
 	}
+
 
 	public List<VehiculeVMResponse> getAll() {
 		List<VehiculeVMResponse> list = new ArrayList<VehiculeVMResponse>();
@@ -96,6 +98,8 @@ public class VehiculeService {
 		v.setNbr_places(vVm.getNbr_places());
 		v.setUrlImage(vVm.getUrlImage());
 		return v;
+
+
 	}
 
 }

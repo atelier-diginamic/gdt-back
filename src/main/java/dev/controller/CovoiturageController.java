@@ -78,7 +78,7 @@ public class CovoiturageController {
 			Covoiturage nouveauCovoiturage = new Covoiturage();
 			nouveauCovoiturage.setDate(covoiturageVM.getDate());
 			nouveauCovoiturage.setDepart(covoiturageVM.getDepart());
-			nouveauCovoiturage.setDestination(covoiturageVM.getDestination());;
+			nouveauCovoiturage.setDestination(covoiturageVM.getDestination());
 			nouveauCovoiturage.setChauffeur(covoiturageVM.getChauffeur());
 			nouveauCovoiturage.setPassagers(covoiturageVM.getPassagers());
 			nouveauCovoiturage = this.covoitRepo.save(nouveauCovoiturage);

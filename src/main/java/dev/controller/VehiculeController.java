@@ -2,7 +2,6 @@ package dev.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -20,13 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.controller.vm.VehiculeVM;
 import dev.controller.vm.VehiculeVMResponse;
 import dev.domain.Vehicule;
+
 import dev.exception.vehiculeException;
 import dev.repository.VehiculeRepo;
+
 import dev.service.VehiculeService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/vehicule")
+
 public class VehiculeController {
 	private VehiculeService vehiculeSvr;
 
@@ -49,16 +51,19 @@ public class VehiculeController {
 			e.printStackTrace();
 		}
 		return list;
+
 	}
 
 	// ajout d'un vehicule
 
 	@PostMapping
+
 	public ResponseEntity<?> createVehicule(@Valid @RequestBody VehiculeVM vehiculeVm, BindingResult resValid){
 		if (!resValid.hasErrors()) {
 			return ResponseEntity.ok().body(vehiculeSvr.add(vehiculeVm));
 		} else {
 			return ResponseEntity.badRequest().body(resValid.getAllErrors());
 		}
+
 	}
 }

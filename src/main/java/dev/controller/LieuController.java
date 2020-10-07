@@ -18,51 +18,34 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.controller.vm.LieuVM;
 import dev.domain.Lieu;
 import dev.repository.LieuRepository;
+import dev.service.LieuService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/lieu")
 public class LieuController {
 
-	private LieuRepository lieuRepo;
+	private LieuService lieuService;
 
-	public LieuController(LieuRepository lieuRepo) {
-		this.lieuRepo = lieuRepo;
+
+	public LieuController(LieuService lieuService) {
+		this.lieuService = lieuService;
 	}
 
 	@GetMapping
 	public List<Lieu> getAll() {
-		return lieuRepo.findAll();
+		return lieuService.getAll();
 	}
 
 	@GetMapping(params = "id")
 	public ResponseEntity<?> getById(@RequestParam Integer id) {
-		Optional<Lieu> lieu = lieuRepo.findById(id);
-
-		if (lieu.isPresent()) {
-			return ResponseEntity.ok().body(lieu.get());
-		} else {
-			return ResponseEntity.badRequest().body("donnée invalide");
-		}
+		return this.lieuService.getById(id);
 	}
 	
 	//ajout
 	@PostMapping
 	public ResponseEntity<?> createLieu(@Valid @RequestBody LieuVM lieuVM, BindingResult resValid) {
-		if (!resValid.hasErrors()) {
-			Lieu nouveauLieu = new Lieu();
-			nouveauLieu.setLibelle(lieuVM.getLibelle());
-			nouveauLieu.setNumero(lieuVM.getNumero());
-			nouveauLieu.setVoie(lieuVM.getVoie());
-			nouveauLieu.setAdresse(lieuVM.getAdresse());
-			nouveauLieu.setCode_postal(lieuVM.getCode_postal());
-			nouveauLieu.setVille(lieuVM.getVille());
-			nouveauLieu.setCoordonnee(lieuVM.getCoordonnee());
-			nouveauLieu.setId(lieuRepo.save(nouveauLieu).getId());
-			return ResponseEntity.ok().body(nouveauLieu);
-		}else {
-			return ResponseEntity.badRequest().body(resValid.getAllErrors());
-		}		
+		return this.lieuService.createLieu(lieuVM, resValid);			
 	}
 	
 	

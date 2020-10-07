@@ -1,6 +1,6 @@
 package dev.controller.vm;
 
-public class VehiculeVMResponce {
+public class VehiculeVMResponse {
 
 	int id;
 	String marque;

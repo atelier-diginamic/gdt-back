@@ -2,6 +2,7 @@ package dev.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Collegue {
@@ -46,7 +47,10 @@ public class Collegue {
     }
 
     public List<RoleCollegue> getRoles() {
-        return roles;
+    	
+    	return roles;
+//    	return roles.stream().map(roleCollegue -> roleCollegue.getRole()).collect(Collectors.toList());
+
     }
 
     public void setRoles(List<RoleCollegue> roles) {

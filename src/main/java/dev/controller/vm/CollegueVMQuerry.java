@@ -1,39 +1,30 @@
 package dev.controller.vm;
 
-import dev.domain.Collegue;
-import dev.domain.Role;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-/**
- * Structure modèlisant un collègue servant à communiquer avec l'extérieur (WEB
- * API).
- */
-public class CollegueVM {
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-	private Long id;
+import dev.domain.Role;
+
+public class CollegueVMQuerry {
+
+	@NotNull
+	@NotEmpty
 	private String email;
+
+	@NotNull
+	@NotEmpty
+	private String motDePasse;
+	@NotNull
+	@NotEmpty
 	private String nom;
+	@NotNull
+	@NotEmpty
 	private String prenom;
+	@NotEmpty
 	private List<Role> roles = new ArrayList<>();
-
-	public CollegueVM(Collegue col) {
-		this.id = col.getId();
-		this.email = col.getEmail();
-		this.nom = col.getNom();
-		this.prenom = col.getPrenom();
-		this.roles = col.getRoles().stream().map(roleCollegue -> roleCollegue.getRole()).collect(Collectors.toList());
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getEmail() {
 		return email;
@@ -41,6 +32,14 @@ public class CollegueVM {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
 	}
 
 	public String getNom() {
@@ -66,4 +65,5 @@ public class CollegueVM {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
 }

@@ -73,6 +73,11 @@ public class VehiculeService {
 				list.add(getVehiculeVmResponse(v4));
 			}
 			break;
+		case "immatriculation":
+			for (Vehicule v5 : vehiculeRepo.findByImmatriculation(value)) {
+				list.add(getVehiculeVmResponse(v5));
+			}
+			break;
 		}
 
 		return list;

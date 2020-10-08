@@ -14,6 +14,7 @@ public interface VehiculeRepo extends JpaRepository<Vehicule, Integer>{
 	List<Vehicule> findByMarque(String marque);
 	List<Vehicule> findByModel(String model);
 	List<Vehicule> findBycategorie(String categorie);
+	List<Vehicule> findByImmatriculation(String immat);
 	
 	
 }

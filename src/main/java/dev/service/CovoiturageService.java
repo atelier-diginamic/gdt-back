@@ -62,23 +62,27 @@ public class CovoiturageService {
 
 	private CovoiturageVmResponse covoiturageToVmResponse(Covoiturage c) {
 
-		CovoiturageVmResponse VmResponse = new CovoiturageVmResponse();
-		VmResponse.setId(c.getId());
-		VmResponse.setDate(c.getDate());
-		VmResponse.setDepart(c.getDepart());
-		VmResponse.setDestination(c.getDestination());
+		CovoiturageVmResponse vmResponse = new CovoiturageVmResponse();
+		vmResponse.setId(c.getId());
+		vmResponse.setDate(c.getDate());
+		vmResponse.setDepart(c.getDepart());
+		vmResponse.setDestination(c.getDestination());
 		try {
-			VmResponse.setVehicule(vehiculeServ.getById(c.getId()));
+			vmResponse.setVehicule(vehiculeServ.getById(c.getId()));
 		} catch (vehiculeException e) {
 			e.printStackTrace();
 		}
 
+		vmResponse.setChauffeur(colServ.collegueToVMResponse(c.getChauffeur()));
+		
+		
+		
 		List<CollegueVMResponce> listPassagerVm = new ArrayList<CollegueVMResponce>();
 		for (Collegue col : c.getPassagers()) {
 			listPassagerVm.add(colServ.collegueToVMResponse(col));
 		}
-		VmResponse.setPassagers(listPassagerVm);
-		return VmResponse;
+		vmResponse.setPassagers(listPassagerVm);
+		return vmResponse;
 	}
 
 	private Covoiturage createEntity(CovoiturageVM cVmQuery) throws vehiculeException, CollegueException {

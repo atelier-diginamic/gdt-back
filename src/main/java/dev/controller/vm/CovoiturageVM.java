@@ -18,10 +18,8 @@ public class CovoiturageVM {
 	@NotBlank
 	@NotNull
 	private String destination;
-	@NotBlank
 	@NotNull
 	private Integer vehiculeId;
-	@NotBlank
 	@NotNull
 	private Long chauffeurId;
 	private List<Integer> passagersId;

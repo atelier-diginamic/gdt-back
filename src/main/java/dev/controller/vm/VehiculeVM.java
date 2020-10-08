@@ -1,5 +1,6 @@
 package dev.controller.vm;
 
+import dev.domain.EtatVehicule;
 
 public class VehiculeVM {
 
@@ -14,6 +15,8 @@ public class VehiculeVM {
 	String immatriculation;
 
 	String categorie;
+	
+	EtatVehicule etat;
 
 	String urlImage;
 
@@ -74,6 +77,14 @@ public class VehiculeVM {
 
 	public void setCategorie(String categorie) {
 		this.categorie = categorie;
+	}
+
+	public EtatVehicule getEtat() {
+		return etat;
+	}
+
+	public void setEtat(EtatVehicule etat) {
+		this.etat = etat;
 	}
 
 	public String getUrlImage() {

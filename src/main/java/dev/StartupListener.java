@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import dev.domain.Collegue;
 import dev.domain.Covoiturage;
+import dev.domain.EtatVehicule;
 import dev.domain.Role;
 import dev.domain.RoleCollegue;
 import dev.domain.Vehicule;
@@ -70,12 +71,36 @@ public class StartupListener {
 
 		Vehicule vehicule1 = new Vehicule();
 		vehicule1.setImmatriculation("IMMAT-123");
-		vehicule1.setMarque("Ferrari");
+		vehicule1.setMarque("Renault");
 		vehicule1.setModel("Clio");
 		vehicule1.setCategorie("Citadine");
 		vehicule1.setNbr_places(3);
+		vehicule1.setEtat(EtatVehicule.EN_SERVICE);
 		vehicule1.setUrlImage("image");
 		this.vehiculeRepo.save(vehicule1);
+		
+		Vehicule vehicule2 = new Vehicule();
+		vehicule2.setImmatriculation("2405-cql-86");
+		vehicule2.setMarque("Opel");
+		vehicule2.setModel("Zafira");
+		vehicule2.setCategorie("Monospace");
+		vehicule2.setNbr_places(6);
+		vehicule2.setEtat(EtatVehicule.EN_REPARATION);
+		vehicule2.setUrlImage("image");
+		this.vehiculeRepo.save(vehicule2);
+		
+		Vehicule vehicule3 = new Vehicule();
+		vehicule3.setImmatriculation("AP-900-YY");
+		vehicule3.setMarque("Aoyota");
+		vehicule3.setModel("Aygo");
+		vehicule3.setCategorie("Citadine");
+		vehicule3.setNbr_places(2);
+		vehicule3.setEtat(EtatVehicule.HORS_SERVICE);
+		vehicule3.setUrlImage("image");
+		this.vehiculeRepo.save(vehicule3);
+		
+		
+		
 
 		Covoiturage covoiturage = new Covoiturage();
 		covoiturage.setDate(new Date());

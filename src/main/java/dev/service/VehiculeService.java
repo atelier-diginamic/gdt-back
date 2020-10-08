@@ -73,6 +73,11 @@ public class VehiculeService {
 				list.add(getVehiculeVmResponse(v4));
 			}
 			break;
+		case "immatriculation":
+			for (Vehicule v5 : vehiculeRepo.findByImmatriculation(value)) {
+				list.add(getVehiculeVmResponse(v5));
+			}
+			break;
 		}
 
 		return list;
@@ -95,15 +100,16 @@ public class VehiculeService {
 	
 //methodes prive de la class
 	private VehiculeVMResponse getVehiculeVmResponse(Vehicule v) {
-		VehiculeVMResponse VmResponse = new VehiculeVMResponse();
-		VmResponse.setCategorie(v.getCategorie());
-		VmResponse.setId(v.getId());
-		VmResponse.setImmatriculation(v.getImmatriculation());
-		VmResponse.setMarque(v.getMarque());
-		VmResponse.setModel(v.getModel());
-		VmResponse.setNbr_places(v.getNbr_places());
-		VmResponse.setUrlImage(v.getUrlImage());
-		return VmResponse;
+		VehiculeVMResponse vmResponse = new VehiculeVMResponse();
+		vmResponse.setCategorie(v.getCategorie());
+		vmResponse.setId(v.getId());
+		vmResponse.setImmatriculation(v.getImmatriculation());
+		vmResponse.setMarque(v.getMarque());
+		vmResponse.setModel(v.getModel());
+		vmResponse.setNbr_places(v.getNbr_places());
+		vmResponse.setEtat(v.getEtat());
+		vmResponse.setUrlImage(v.getUrlImage());
+		return vmResponse;
 	}
 	
 	private Vehicule createEntity(VehiculeVM vVm) {
@@ -113,6 +119,7 @@ public class VehiculeService {
 		v.setMarque(vVm.getMarque());
 		v.setModel(vVm.getModel());
 		v.setNbr_places(vVm.getNbr_places());
+		v.setEtat(vVm.getEtat());
 		v.setUrlImage(vVm.getUrlImage());
 		return v;
 

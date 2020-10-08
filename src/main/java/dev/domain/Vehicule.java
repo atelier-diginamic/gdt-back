@@ -2,6 +2,8 @@ package dev.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +30,9 @@ public class Vehicule {
 	@Column(length = 50, nullable = false)
 	String categorie;
 
+	@Enumerated(EnumType.STRING)
+    private EtatVehicule etat;
+	
 	@Column(name="url_image", length = 255, nullable = false)
 	String urlImage;
 
@@ -77,6 +82,14 @@ public class Vehicule {
 
 	public void setCategorie(String catregorie) {
 		this.categorie = catregorie;
+	}
+
+	public EtatVehicule getEtat() {
+		return etat;
+	}
+
+	public void setEtat(EtatVehicule etat) {
+		this.etat = etat;
 	}
 
 	public String getUrlImage() {

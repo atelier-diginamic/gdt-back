@@ -3,93 +3,73 @@ package dev.controller.vm;
 import java.util.Date;
 import java.util.List;
 
-import dev.domain.Collegue;
-import dev.domain.Covoiturage;
-import dev.domain.Lieu;
-import dev.domain.Vehicule;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CovoiturageVM {
-		private Integer id = null;
-		
-		private Date date;
 
-		private Lieu depart;
+	@Future
+	private Date date;
 
-		private Lieu destination;
+	@NotBlank
+	@NotNull
+	private String depart;
+	@NotBlank
+	@NotNull
+	private String destination;
+	@NotNull
+	private Integer vehiculeId;
+	@NotNull
+	private Long chauffeurId;
+	private List<Integer> passagersId;
 
-		private Vehicule vehicule;
+	public Date getDate() {
+		return date;
+	}
 
-		private Collegue chauffeur;
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-		private List<Collegue> passagers;
-		
-		public CovoiturageVM() {
-			System.err.println("bonjour les amis !");
-		}
-		
-		public CovoiturageVM(Covoiturage covoiturage) {
-			this.date = covoiturage.getDate();
-			this.depart = covoiturage.getDepart();
-			this.destination = covoiturage.getDestination();
-			this.vehicule = covoiturage.getVehicule();
-			this.chauffeur = covoiturage.getChauffeur();
-			this.passagers = covoiturage.getPassagers();
-		}
+	public String getDepart() {
+		return depart;
+	}
 
-		public Integer getId() {
-			return id;
-		}
+	public void setDepart(String depart) {
+		this.depart = depart;
+	}
 
-		public void setId(Integer id) {
-			this.id = id;
-		}
+	public String getDestination() {
+		return destination;
+	}
 
-		public Date getDate() {
-			return date;
-		}
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
 
-		public void setDate(Date date) {
-			this.date = date;
-		}
+	public Integer getVehiculeId() {
+		return vehiculeId;
+	}
 
-		public Lieu getDepart() {
-			return depart;
-		}
+	public void setVehiculeId(Integer vehiculeId) {
+		this.vehiculeId = vehiculeId;
+	}
 
-		public void setDepart(Lieu depart) {
-			this.depart = depart;
-		}
+	public Long getChauffeurId() {
+		return chauffeurId;
+	}
 
-		public Lieu getDestination() {
-			return destination;
-		}
+	public void setChauffeurId(Long chauffeurId) {
+		this.chauffeurId = chauffeurId;
+	}
 
-		public void setDestination(Lieu destination) {
-			this.destination = destination;
-		}
+	public List<Integer> getPassagersId() {
+		return passagersId;
+	}
 
-		public Vehicule getVehicule() {
-			return vehicule;
-		}
-
-		public void setVehicule(Vehicule vehicule) {
-			this.vehicule = vehicule;
-		}
-
-		public Collegue getChauffeur() {
-			return chauffeur;
-		}
-
-		public void setChauffeur(Collegue chauffeur) {
-			this.chauffeur = chauffeur;
-		}
-
-		public List<Collegue> getPassagers() {
-			return passagers;
-		}
-
-		public void setPassagers(List<Collegue> passagers) {
-			this.passagers = passagers;
-		}
+	public void setPassagersId(List<Integer> passagersId) {
+		this.passagersId = passagersId;
+	}
 
 }

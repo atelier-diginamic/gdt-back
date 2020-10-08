@@ -3,6 +3,7 @@ package dev.domain;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import dev.controller.vm.CollegueVM;
+
 @Entity
 public class Covoiturage {
 
@@ -24,13 +27,15 @@ public class Covoiturage {
 	@Temporal(TemporalType.DATE)
 	Date date;
 
-	@OneToOne
-	@JoinColumn(name = "id_adresse_depart")
-	Lieu depart;
+//	@OneToOne
+//	@JoinColumn(name = "id_adresse_depart")
+	@Column(nullable=false)
+	String depart;
 
-	@OneToOne
-	@JoinColumn(name = "id_adresse_destination")
-	Lieu destination;
+//	@OneToOne
+//	@JoinColumn(name = "id_adresse_destination")
+	@Column(nullable=false)
+	String destination;
 
 	@OneToOne
 	@JoinColumn(name = "id_vehicule")
@@ -44,6 +49,14 @@ public class Covoiturage {
 	@JoinTable(name = "fk_covoiturage_collaborateur", joinColumns = @JoinColumn(name = "id_covoiturage"), inverseJoinColumns = @JoinColumn(name = "id_collaborateur"))
 	List<Collegue> passagers;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -52,19 +65,19 @@ public class Covoiturage {
 		this.date = date;
 	}
 
-	public Lieu getDepart() {
+	public String getDepart() {
 		return depart;
 	}
 
-	public void setDepart(Lieu depart) {
+	public void setDepart(String depart) {
 		this.depart = depart;
 	}
 
-	public Lieu getDestination() {
+	public String getDestination() {
 		return destination;
 	}
 
-	public void setDestination(Lieu destination) {
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
@@ -98,4 +111,7 @@ public class Covoiturage {
 				+ ", vehicule=" + vehicule + ", chauffeur=" + chauffeur + ", passagers=" + passagers + "]";
 	}
 
+
+
+	
 }

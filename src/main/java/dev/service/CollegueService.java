@@ -37,6 +37,14 @@ public class CollegueService {
 		return list;
 
 	}
+	public Collegue getEntityById(Long id) throws CollegueException {
+		Optional<Collegue> optCol = colRepo.findById(id);
+		if (optCol.isPresent())
+			return optCol.get();
+		else
+			throw new CollegueException("id inconnu");
+	}
+	
 
 	public List<CollegueVMResponce> getBy(String type, String value) throws CollegueException {
 		List<CollegueVMResponce> list = new ArrayList<CollegueVMResponce>();
@@ -74,7 +82,7 @@ public class CollegueService {
 	
 	// methode de la class
 
-	private CollegueVMResponce collegueToVMResponse(Collegue collegue) {
+	protected CollegueVMResponce collegueToVMResponse(Collegue collegue) {
 		CollegueVMResponce cVMResponse = new CollegueVMResponce();
 		cVMResponse.setId(collegue.getId());
 		cVMResponse.setEmail(collegue.getEmail());
@@ -99,4 +107,7 @@ public class CollegueService {
 		newCol.setRoles(listRoleCollegue);
 		return newCol;
 	}
+
+
+	
 }

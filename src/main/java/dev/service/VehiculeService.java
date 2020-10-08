@@ -30,6 +30,23 @@ public class VehiculeService {
 		}
 		return list;
 	}
+	
+	public VehiculeVMResponse getById(int id) throws vehiculeException {
+		Optional<Vehicule> v = vehiculeRepo.findById(id);
+		if (v.isPresent())
+			return getVehiculeVmResponse(v.get());
+		else
+			throw new vehiculeException("erreur id inconu !");
+	}
+	
+	public Vehicule getEntityById(Integer id) throws vehiculeException {
+		Optional<Vehicule> v = vehiculeRepo.findById(id);
+		if (v.isPresent())
+			return v.get();
+		else
+			throw new vehiculeException("erreur id inconu !");
+	}
+	
 
 	public List<VehiculeVMResponse> getBy(String type, String value) throws vehiculeException {
 		List<VehiculeVMResponse> list = new ArrayList<VehiculeVMResponse>();
@@ -101,5 +118,8 @@ public class VehiculeService {
 
 
 	}
+
+
+
 
 }

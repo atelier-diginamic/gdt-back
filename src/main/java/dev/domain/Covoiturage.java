@@ -1,6 +1,7 @@
 package dev.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,10 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import dev.controller.vm.CollegueVM;
 
 @Entity
 public class Covoiturage {
@@ -23,18 +20,27 @@ public class Covoiturage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
-	@Temporal(TemporalType.DATE)
-	Date date;
+
+//	@Temporal(TemporalType.DATE)
+//	LocalDateTime date;
+
+	@Column(name = "date", columnDefinition = "DATE")
+	private LocalDate date;
+
+	@Column(name = "heure_depart", columnDefinition = "time")
+	private LocalTime heureDepart;
+
+	@Column(name = "heure_arrive", columnDefinition = "time")
+	private LocalTime heureArriver;
 
 //	@OneToOne
 //	@JoinColumn(name = "id_adresse_depart")
-	@Column(nullable=false)
+	@Column(nullable = false)
 	String depart;
 
 //	@OneToOne
 //	@JoinColumn(name = "id_adresse_destination")
-	@Column(nullable=false)
+	@Column(nullable = false)
 	String destination;
 
 	@OneToOne
@@ -57,12 +63,28 @@ public class Covoiturage {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public LocalTime getHeureDepart() {
+		return heureDepart;
+	}
+
+	public void setHeureDepart(LocalTime heureDepart) {
+		this.heureDepart = heureDepart;
+	}
+
+	public LocalTime getHeureArriver() {
+		return heureArriver;
+	}
+
+	public void setHeureArriver(LocalTime heureArriver) {
+		this.heureArriver = heureArriver;
 	}
 
 	public String getDepart() {
@@ -111,7 +133,4 @@ public class Covoiturage {
 				+ ", vehicule=" + vehicule + ", chauffeur=" + chauffeur + ", passagers=" + passagers + "]";
 	}
 
-
-
-	
 }

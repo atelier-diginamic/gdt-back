@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.vm.CovoiturageVM;
 import dev.controller.vm.CovoiturageVmResponse;
-import dev.domain.Covoiturage;
 import dev.exception.CollegueException;
 import dev.exception.CovoitException;
 import dev.exception.vehiculeException;
@@ -25,7 +24,7 @@ import dev.service.CovoiturageService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/covoiturage")
+@RequestMapping("/covoiturages")
 public class CovoiturageController {
 
 	private CovoiturageService covoitServ;
@@ -39,16 +38,27 @@ public class CovoiturageController {
 		return covoitServ.getAll();
 	}
 	
-	@GetMapping(params = "id")
-	public CovoiturageVmResponse getById(@RequestParam Integer id) {
+	
+	
+	@GetMapping(params = {"type","value"})
+	public List<CovoiturageVmResponse> getBy(@RequestParam String type, @RequestParam String value) {
 		try {
-			return covoitServ.getById(id);
+			return covoitServ.getBy(type, value);
 		} catch (CovoitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@PostMapping
 	@Transactional

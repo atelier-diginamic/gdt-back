@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import dev.controller.vm.VehiculeVM;
@@ -89,11 +91,10 @@ public class VehiculeService {
 		return getVehiculeVmResponse(vehiculeRepo.save(nouveau));
 	}
 	
-	
-	
-	
-	
-	
+	public boolean delete(int id) {
+		vehiculeRepo.deleteById(id);
+		return true;
+	}
 	
 	
 	
@@ -114,6 +115,9 @@ public class VehiculeService {
 	
 	private Vehicule createEntity(VehiculeVM vVm) {
 		Vehicule v=new Vehicule();
+		
+		if(vVm.getId()!=null) v.setId(vVm.getId());
+		
 		v.setCategorie(vVm.getCategorie());
 		v.setImmatriculation(vVm.getImmatriculation());
 		v.setMarque(vVm.getMarque());
@@ -122,11 +126,6 @@ public class VehiculeService {
 		v.setEtat(vVm.getEtat());
 		v.setUrlImage(vVm.getUrlImage());
 		return v;
-
-
 	}
-
-
-
 
 }

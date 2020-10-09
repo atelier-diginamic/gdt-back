@@ -1,6 +1,6 @@
 package dev.controller;
 
-import dev.controller.vm.CollegueVM;
+import dev.dto.CollegueVM;
 import dev.repository.CollegueRepo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

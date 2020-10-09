@@ -1,8 +1,9 @@
 package dev.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.controller.vm.CollegueVM;
-import dev.domain.Collegue;
+
+import dev.dto.CollegueVM;
+import dev.entity.Collegue;
 import dev.repository.CollegueRepo;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;

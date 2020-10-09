@@ -1,4 +1,4 @@
-package dev.domain;
+package dev.entity;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;

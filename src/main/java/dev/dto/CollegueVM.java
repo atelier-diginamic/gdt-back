@@ -1,11 +1,18 @@
-package dev.controller.vm;
+package dev.dto;
+
+import enumeration.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import dev.domain.Role;
+import dev.entity.Collegue;
 
-public class CollegueVMResponce {
+/**
+ * Structure modèlisant un collègue servant à communiquer avec l'extérieur (WEB
+ * API).
+ */
+public class CollegueVM {
 
 	private Long id;
 	private String email;
@@ -13,10 +20,14 @@ public class CollegueVMResponce {
 	private String prenom;
 	private List<Role> roles = new ArrayList<>();
 
-	
-	
-	
-	
+	public CollegueVM(Collegue col) {
+		this.id = col.getId();
+		this.email = col.getEmail();
+		this.nom = col.getNom();
+		this.prenom = col.getPrenom();
+		this.roles = col.getRoles().stream().map(roleCollegue -> roleCollegue.getRole()).collect(Collectors.toList());
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -56,5 +67,4 @@ public class CollegueVMResponce {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-
 }

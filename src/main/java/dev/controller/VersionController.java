@@ -1,6 +1,6 @@
 package dev.controller;
 
-import dev.domain.Version;
+import dev.entity.Version;
 import dev.repository.VersionRepo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,6 +1,7 @@
 package dev.controller.vm;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.validation.constraints.Future;
@@ -10,7 +11,11 @@ import javax.validation.constraints.NotNull;
 public class CovoiturageVM {
 
 	@Future
-	private Date date;
+	private LocalDate date;
+	@NotNull
+	private LocalTime heureDepart;
+	@NotNull
+	private LocalTime heureArrive;
 
 	@NotBlank
 	@NotNull
@@ -24,12 +29,28 @@ public class CovoiturageVM {
 	private Long chauffeurId;
 	private List<Integer> passagersId;
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public LocalTime getHeureDepart() {
+		return heureDepart;
+	}
+
+	public void setHeureDepart(LocalTime heureDepart) {
+		this.heureDepart = heureDepart;
+	}
+
+	public LocalTime getHeureArrive() {
+		return heureArrive;
+	}
+
+	public void setHeureArrive(LocalTime heureArrive) {
+		this.heureArrive = heureArrive;
 	}
 
 	public String getDepart() {

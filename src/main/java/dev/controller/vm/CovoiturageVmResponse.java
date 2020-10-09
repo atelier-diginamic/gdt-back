@@ -1,14 +1,17 @@
 package dev.controller.vm;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-
-import dev.domain.Covoiturage;
 
 public class CovoiturageVmResponse {
 
 	private Integer id;
-	private Date date;
+
+	private LocalDate date;
+	private LocalTime heureDepart;
+	private LocalTime heureArrive;
+
 	private String depart;
 	private String destination;
 	private VehiculeVMResponse vehicule;
@@ -23,12 +26,28 @@ public class CovoiturageVmResponse {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public LocalTime getHeureDepart() {
+		return heureDepart;
+	}
+
+	public void setHeureDepart(LocalTime heureDepart) {
+		this.heureDepart = heureDepart;
+	}
+
+	public LocalTime getHeureArrive() {
+		return heureArrive;
+	}
+
+	public void setHeureArrive(LocalTime heureArrive) {
+		this.heureArrive = heureArrive;
 	}
 
 	public String getDepart() {

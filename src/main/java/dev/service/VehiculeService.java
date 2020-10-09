@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Service;
 
 import dev.controller.vm.VehiculeVM;
 import dev.controller.vm.VehiculeVMResponse;
 import dev.domain.Vehicule;
 import dev.exception.vehiculeException;
-
 import dev.repository.VehiculeRepo;
 
 @Service
@@ -91,10 +88,7 @@ public class VehiculeService {
 		return getVehiculeVmResponse(vehiculeRepo.save(nouveau));
 	}
 	
-	public boolean delete(int id) {
-		vehiculeRepo.deleteById(id);
-		return true;
-	}
+
 	
 	
 	

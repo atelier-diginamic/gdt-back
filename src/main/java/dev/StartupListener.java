@@ -1,8 +1,10 @@
 package dev;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -156,7 +158,9 @@ public class StartupListener {
 		//creation de 5 covoiturages
 
 		Covoiturage covoiturage = new Covoiturage();
-		covoiturage.setDate(new Date());
+		covoiturage.setDate(LocalDate.now());
+		covoiturage.setHeureDepart(LocalTime.of(8, 0));
+		covoiturage.setHeureArriver(LocalTime.of(10, 0));
 		covoiturage.setDepart("adresseDepart");
 		covoiturage.setDestination("adresseArrive");
 		covoiturage.setVehicule(vehicule1);
@@ -165,7 +169,9 @@ public class StartupListener {
 		this.covoiturageRepo.save(covoiturage);
 		
 		Covoiturage covoiturage2 = new Covoiturage();
-		covoiturage2.setDate(new Date());
+		covoiturage2.setDate(LocalDate.of(2020, Month.DECEMBER, 29));
+		covoiturage.setHeureDepart(LocalTime.of(8, 0));
+		covoiturage.setHeureArriver(LocalTime.of(10, 0));
 		covoiturage2.setDepart("adresseDepart");
 		covoiturage2.setDestination("adresseArrive");
 		covoiturage2.setVehicule(vehicule4);
@@ -174,7 +180,9 @@ public class StartupListener {
 		this.covoiturageRepo.save(covoiturage2);
 		
 		Covoiturage covoiturage3 = new Covoiturage();
-		covoiturage3.setDate(new Date());
+		covoiturage3.setDate((LocalDate.of(2020, Month.DECEMBER, 30)));
+		covoiturage.setHeureDepart(LocalTime.of(8, 0));
+		covoiturage.setHeureArriver(LocalTime.of(10, 0));
 		covoiturage3.setDepart("adresseDepart");
 		covoiturage3.setDestination("adresseArrive");
 		covoiturage3.setVehicule(vehicule5);
@@ -183,7 +191,9 @@ public class StartupListener {
 		this.covoiturageRepo.save(covoiturage3);
 		
 		Covoiturage covoiturage4 = new Covoiturage();
-		covoiturage4.setDate(new Date());
+		covoiturage4.setDate((LocalDate.of(2019, Month.DECEMBER, 29)));
+		covoiturage.setHeureDepart(LocalTime.of(8, 0));
+		covoiturage.setHeureArriver(LocalTime.of(10, 0));
 		covoiturage4.setDepart("adresseDepart");
 		covoiturage4.setDestination("adresseArrive");
 		covoiturage4.setVehicule(vehicule1);
@@ -192,7 +202,9 @@ public class StartupListener {
 		this.covoiturageRepo.save(covoiturage4);
 		
 		Covoiturage covoiturage5 = new Covoiturage();
-		covoiturage5.setDate(new Date());
+		covoiturage5.setDate(LocalDate.now());
+		covoiturage.setHeureDepart(LocalTime.of(8, 0));
+		covoiturage.setHeureArriver(LocalTime.of(10, 0));
 		covoiturage5.setDepart("adresseDepart");
 		covoiturage5.setDestination("adresseArrive");
 		covoiturage5.setVehicule(vehicule4);

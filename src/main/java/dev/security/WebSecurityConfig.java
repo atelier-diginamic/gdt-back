@@ -61,8 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                
-        		
+
+
+
         		// désactivation CSRF
                 .csrf().disable()
                 // support de requêtes Cross-Domain pour Spring Security
@@ -78,15 +79,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // toutes les requêtes doivent être authentifiées
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
-                
-                
-                
-                //a commenter fait planter l'appli
-                //.antMatcher("http://localhost:8080/h2-console/**")
-                //################################################
-                
-                
-                
+
+
+
+                .authorizeRequests()
+                  .antMatchers("http://localhost:8080/h2-console/**").permitAll()
+                  .anyRequest().authenticated()
+                  .and()
+
+
+
                 // génération d'un formulaire de login
                 // il faut produire une requête avec les caractéristiques suivantes :
                 //      POST /login

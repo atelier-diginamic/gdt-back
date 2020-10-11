@@ -2,14 +2,16 @@ package dev.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import dev.dto.AnnonceCovoiturageDtoQuery;
 import dev.dto.AnnonceCovoiturageDtoRep;
-import dev.dto.CovoiturageDtoQuery;
 import dev.entity.AnnonceCovoiturage;
 import dev.entity.Collegue;
 import dev.exception.CollegueException;
+import dev.exception.CovoiturageException;
 import dev.repository.CovoiturageRepository;
 
 @Service
@@ -73,9 +75,36 @@ public class CovoiturageService {
 	 * @param cDtoQuery objet envoyer depuis une application exterieur
 	 * @return un objet dto suite a l'enregistrement en bdd
 	 */
-	public Object add(CovoiturageDtoQuery cDtoQuery) {
-		AnnonceCovoiturage ac = getEntity(cDtoQuery);
+	public Object add(AnnonceCovoiturageDtoQuery acDtoQuery) {
+		AnnonceCovoiturage ac = getEntity(acDtoQuery);
 		return getDtoRep(covRepo.save(ac));
+	}
+	/**
+	 * editer un covoiturage
+	 * @param acDtoQuery dto de requete du covoiturage a modifier
+	 * @return un objet dto d'annonce de covoiturage
+	 */
+	public AnnonceCovoiturageDtoRep edit(AnnonceCovoiturageDtoQuery acDtoQuery) {
+		AnnonceCovoiturage ac=this.getEntity(acDtoQuery);
+		return this.getDtoRep(covRepo.save(ac));
+	}
+
+	/**
+	 * supprime un covoiturage
+	 * @param id id du covoiturage a supprimer
+	 * @return 
+	 * @throws CovoiturageException 
+	 */
+	public List<AnnonceCovoiturageDtoRep> delete(int id) throws CovoiturageException {
+		Optional<AnnonceCovoiturage> ac=covRepo.findById(id);
+		if(ac.isPresent()) {
+			covRepo.delete(ac.get());
+			List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+			for (AnnonceCovoiturage ac2 : covRepo.findAll()) {
+				list.add(this.getDtoRep(ac2));
+			}
+			return list;
+		}else throw new CovoiturageException("id covoiturage non trouvé");
 	}
 
 //	transformation  Objet <--> Dto
@@ -98,30 +127,34 @@ public class CovoiturageService {
 		return acRep;
 	}
 
-	protected AnnonceCovoiturage getEntity(CovoiturageDtoQuery cDtoQuery) {
+	protected AnnonceCovoiturage getEntity(AnnonceCovoiturageDtoQuery acDtoQuery) {
 		AnnonceCovoiturage ac = new AnnonceCovoiturage();
 
-		if (cDtoQuery.getId() != null)
-			ac.setId(cDtoQuery.getId());
+		if (acDtoQuery.getId() != null)
+			ac.setId(acDtoQuery.getId());
 
-		ac.setDate(cDtoQuery.getDate());
-		ac.setDepart(cDtoQuery.getDepart());
-		ac.setArrive(cDtoQuery.getArrive());
-		ac.setHeureDepart(cDtoQuery.getHeureDepart());
-		ac.setMarqueVoiture(cDtoQuery.getMarqueVoiture());
-		ac.setModeleVoiture(cDtoQuery.getModeleVoiture());
-		ac.setImageUrl(cDtoQuery.getImageUrl());
-		ac.setPlace(cDtoQuery.getPlace());
-		ac.setStatus(cDtoQuery.getStatus());
+		ac.setDate(acDtoQuery.getDate());
+		ac.setDepart(acDtoQuery.getDepart());
+		ac.setArrive(acDtoQuery.getArrive());
+		ac.setHeureDepart(acDtoQuery.getHeureDepart());
+		ac.setMarqueVoiture(acDtoQuery.getMarqueVoiture());
+		ac.setModeleVoiture(acDtoQuery.getModeleVoiture());
+		ac.setImageUrl(acDtoQuery.getImageUrl());
+		ac.setPlace(acDtoQuery.getPlace());
+		ac.setStatus(acDtoQuery.getStatus());
 		try {
-			ac.setCollegue(colServ.getEntityById(cDtoQuery.getCollegueId()));
-			for (Integer i : cDtoQuery.getPassagersId()) {
+			ac.setCollegue(colServ.getEntityById(acDtoQuery.getCollegueId()));
+			for (Integer i : acDtoQuery.getPassagersId()) {
 				ac.getPassager().add(colServ.getEntityById(i));
 			}
 		} catch (CollegueException e) {
 			e.printStackTrace();
 		}
 		return ac;
+		
 	}
+
+
+
 
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import dev.dto.AnnonceCovoiturageDtoQuery;
 import dev.dto.AnnonceCovoiturageDtoRep;
+import dev.dto.CovoiturageDtoQuery;
 import dev.entity.AnnonceCovoiturage;
 import dev.entity.Collegue;
 import dev.exception.CollegueException;
@@ -24,13 +24,9 @@ public class CovoiturageService {
 		this.colServ = colServ;
 	}
 
-	
-	
-	
-	
-	
 	/**
 	 * recherche les covoiturages ou l'id d'un collegue est passager
+	 * 
 	 * @param id l'id du collegue a rechercher
 	 * @return unt liste de dto annonceCovoiturage
 	 */
@@ -44,6 +40,7 @@ public class CovoiturageService {
 
 	/**
 	 * recherche les covoiturages ou l'id d'un collegue n'est pas passager
+	 * 
 	 * @param id l'id du collegue a rechercher
 	 * @return unt liste de dto annonceCovoiturage
 	 */
@@ -55,8 +52,32 @@ public class CovoiturageService {
 		return list;
 	}
 	
-	
-	
+	/**
+	 * listes les annonces par createur
+	 * 
+	 * @param id createur des annonces a rechercher
+	 * @return une liste de AnnonceCovoiturageDtoRep
+	 * @throws CollegueException 
+	 */
+	public Object annonces(Integer id) throws CollegueException {
+		List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+		for (AnnonceCovoiturage ac : covRepo.findByCollegue(colServ.getEntityById(id))) {
+			list.add(this.getDtoRep(ac));
+		}
+		return list;
+	}
+
+	/**
+	 * enregistre une nouvelle entre dans la table annonce_covoiturage
+	 * 
+	 * @param cDtoQuery objet envoyer depuis une application exterieur
+	 * @return un objet dto suite a l'enregistrement en bdd
+	 */
+	public Object add(CovoiturageDtoQuery cDtoQuery) {
+		AnnonceCovoiturage ac = getEntity(cDtoQuery);
+		return getDtoRep(covRepo.save(ac));
+	}
+
 //	transformation  Objet <--> Dto
 	protected AnnonceCovoiturageDtoRep getDtoRep(AnnonceCovoiturage ac) {
 		AnnonceCovoiturageDtoRep acRep = new AnnonceCovoiturageDtoRep();
@@ -77,24 +98,24 @@ public class CovoiturageService {
 		return acRep;
 	}
 
-	protected AnnonceCovoiturage getEntity(AnnonceCovoiturageDtoQuery acQuery) {
+	protected AnnonceCovoiturage getEntity(CovoiturageDtoQuery cDtoQuery) {
 		AnnonceCovoiturage ac = new AnnonceCovoiturage();
 
-		if (acQuery.getId() != null)
-			ac.setId(acQuery.getId());
+		if (cDtoQuery.getId() != null)
+			ac.setId(cDtoQuery.getId());
 
-		ac.setDate(acQuery.getDate());
-		ac.setDepart(acQuery.getDepart());
-		ac.setArrive(acQuery.getArrive());
-		ac.setHeureDepart(acQuery.getHeureDepart());
-		ac.setMarqueVoiture(acQuery.getMarqueVoiture());
-		ac.setModeleVoiture(acQuery.getModeleVoiture());
-		ac.setImageUrl(acQuery.getImageUrl());
-		ac.setPlace(acQuery.getPlace());
-		ac.setStatus(acQuery.getStatus());
+		ac.setDate(cDtoQuery.getDate());
+		ac.setDepart(cDtoQuery.getDepart());
+		ac.setArrive(cDtoQuery.getArrive());
+		ac.setHeureDepart(cDtoQuery.getHeureDepart());
+		ac.setMarqueVoiture(cDtoQuery.getMarqueVoiture());
+		ac.setModeleVoiture(cDtoQuery.getModeleVoiture());
+		ac.setImageUrl(cDtoQuery.getImageUrl());
+		ac.setPlace(cDtoQuery.getPlace());
+		ac.setStatus(cDtoQuery.getStatus());
 		try {
-			ac.setCollegue(colServ.getEntityById(acQuery.getCollegueId()));
-			for (Integer i : acQuery.getPassagersId()) {
+			ac.setCollegue(colServ.getEntityById(cDtoQuery.getCollegueId()));
+			for (Integer i : cDtoQuery.getPassagersId()) {
 				ac.getPassager().add(colServ.getEntityById(i));
 			}
 		} catch (CollegueException e) {

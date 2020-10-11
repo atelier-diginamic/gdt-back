@@ -1,5 +1,5 @@
 package enumeration;
 
 public enum StatusAnnonce {
-EN_COUR,TERMINER,ANNULER
+EN_COURS,TERMINER,ANNULER
 }

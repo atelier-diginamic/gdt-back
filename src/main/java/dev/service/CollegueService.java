@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dev.dto.CollegueDtoRep;
-import dev.dto.collegueDtoQuery;
+import dev.dto.CollegueDtoQuery;
 import dev.entity.Collegue;
 import dev.entity.RoleCollegue;
 import dev.exception.CollegueException;
@@ -26,7 +26,7 @@ public class CollegueService {
 
 	}
 
-	public Collegue getEntityById(int id) throws CollegueException {
+	protected Collegue getEntityById(int id) throws CollegueException {
 		Optional<Collegue> optCol= colRepo.findById(id);
 		if(optCol.isPresent()) return optCol.get();
 		else throw new CollegueException("Id non trouvée");
@@ -43,7 +43,7 @@ public class CollegueService {
 		return new CollegueDtoRep(c);
 	}
 
-	protected Collegue getEntity(collegueDtoQuery cQuery) {
+	protected Collegue getEntity(CollegueDtoQuery cQuery) {
 		Collegue c = new Collegue();
 		c.setEmail(cQuery.getEmail());
 		c.setNom(cQuery.getNom());

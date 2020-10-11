@@ -1,4 +1,4 @@
-package dev.entity;
+package dev.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,36 +13,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "deplacement_pro")
-public class DeplacementPro {
+import dev.entity.Chauffeur;
+import dev.entity.Collegue;
+import dev.entity.DeplacementPro;
+import dev.entity.VehiculeSociete;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DeplacementProDtoRep {
+
 	private int id;
-	@OneToOne
-	@JoinColumn(name = "reserver_par")
-	private Collegue reserverPar;
-	@ManyToOne
-	@JoinColumn(name = "id_chauffeur",nullable = true)
-	private Chauffeur chauffeur;
-	@ManyToOne
-	@JoinColumn(name = "id_vehicule")
-	private VehiculeSociete vehicule;
-	@Column(columnDefinition = "date")
+	private CollegueDtoRep reserverPar;
+	private ChauffeurDtoRep chauffeur;
+	private VehiculeSocieteDtoRep vehicule;
 	private LocalDate date;
 	private String depart;
 	private String destination;
-	@Column(name = "heure_depart", columnDefinition = "time")
 	private LocalTime heureDepart;
-	@ManyToMany
-	@JoinTable(name = "reservation_deplacement_pro", joinColumns = @JoinColumn(name = "id_deplacement_pro"), inverseJoinColumns = @JoinColumn(name = "id_passager"))
-	private List<Collegue> passager = new ArrayList<Collegue>();
-
-	// getteurSetteur
+	private List<CollegueDtoRep> passager = new ArrayList<CollegueDtoRep>();
 
 	public int getId() {
 		return id;
@@ -53,27 +39,27 @@ public class DeplacementPro {
 		this.id = id;
 	}
 
-	public Collegue getReserverPar() {
+	public CollegueDtoRep getReserverPar() {
 		return reserverPar;
 	}
 
-	public void setReserverPar(Collegue reserverPar) {
+	public void setReserverPar(CollegueDtoRep reserverPar) {
 		this.reserverPar = reserverPar;
 	}
 
-	public Chauffeur getChauffeur() {
+	public ChauffeurDtoRep getChauffeur() {
 		return chauffeur;
 	}
 
-	public void setChauffeur(Chauffeur chauffeur) {
+	public void setChauffeur(ChauffeurDtoRep chauffeur) {
 		this.chauffeur = chauffeur;
 	}
 
-	public VehiculeSociete getVehicule() {
+	public VehiculeSocieteDtoRep getVehicule() {
 		return vehicule;
 	}
 
-	public void setVehicule(VehiculeSociete vehicule) {
+	public void setVehicule(VehiculeSocieteDtoRep vehicule) {
 		this.vehicule = vehicule;
 	}
 
@@ -109,11 +95,11 @@ public class DeplacementPro {
 		this.heureDepart = heureDepart;
 	}
 
-	public List<Collegue> getPassager() {
+	public List<CollegueDtoRep> getPassager() {
 		return passager;
 	}
 
-	public void setPassager(List<Collegue> passager) {
+	public void setPassager(List<CollegueDtoRep> passager) {
 		this.passager = passager;
 	}
 

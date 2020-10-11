@@ -5,7 +5,7 @@ import java.util.List;
 
 import enumeration.Role;
 
-public class collegueDtoQuery {
+public class CollegueDtoQuery {
 
 	private Integer id = null;
 	private String email;

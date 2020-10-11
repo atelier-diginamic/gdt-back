@@ -13,9 +13,9 @@ insert into chauffeur(matricule, permis, telephone, id_collegue) values('mat0003
 
 --Annonce covoiturage
 insert into annonce_covoiturage(arrive,date,depart,heure_depart,image_url,marque_voiture,modele_voiture,place,status,id_collegue) values
-('montpellier gare','2020-12-10','Carnon centre','08:00','img','Opel','Zafira', 6,'EN_COUR',4),
-('Carnon centre','2020-12-10','montpellier gare','17:00','img','Opel','Zafira', 6,'EN_COUR',4),
-('Clermont centre','2020-12-24','Beziers centre','08:00','img','Peugeot','206', 6,'EN_COUR',3),
+('montpellier gare','2020-12-10','Carnon centre','08:00','img','Opel','Zafira', 6,'EN_COURS',4),
+('Carnon centre','2020-12-10','montpellier gare','17:00','img','Opel','Zafira', 6,'EN_COURS',4),
+('Clermont centre','2020-12-24','Beziers centre','08:00','img','Peugeot','206', 6,'EN_COURS',3),
 ('montpellier gare','2020-05-10','Carnon centre','08:00','img','Opel','Zafira', 6,'TERMINER',4),
 ('Carnon centre','2020-05-10','montpellier gare','17:00','img','Opel','Zafira', 6,'TERMINER',4)
 ;  
@@ -34,19 +34,19 @@ insert into VEHICULE_SOCIETE  (CATEGORIE,IMMATRICULATION,MARQUE,MODEL,PLACES,STA
 
 
 --deplacement professionnel
-insert into deplacement_pro (date,depart,destination,heure_depart,id_chauffeur,id_vehicule) values
-('2020-12-10','montpellier centre',	'Lyon gare',			'09:00',1,1),
-('2020-12-10','Lyon gare',			'montpellier centre',	'16:00',1,1),
-('2020-12-16','montpellier centre',	'Paris centre',			'09:00',2,2),
-('2020-12-17','Paris centre',		'montpellier centre',	'16:00',2,2),
-('2020-12-18','montpellier centre',	'carnon gare',			'09:00',2,3),
-('2020-12-18','carnon gare',		'palavas',				'12:00',2,3),
-('2020-12-18','palavas',			'le cres',				'14:00',2,3),
-('2020-12-18','le cres ',			'montpellier centre',	'16:00',2,3),
-('2020-05-10','montpellier centre',	'Lyon gare',			'09:00',3,5),
-('2020-05-11','montpellier centre',	'Lyon gare',			'09:00',3,5),
-('2020-05-12','montpellier centre',	'Lyon gare',			'09:00',3,4),
-('2020-05-13','montpellier centre',	'Lyon gare',			'09:00',3,4)
+insert into deplacement_pro (reserver_par,date,depart,destination,heure_depart,id_chauffeur,id_vehicule) values
+(1,'2020-12-10','montpellier centre',	'Lyon gare',			'09:00',1	,1),
+(1,'2020-12-10','Lyon gare',			'montpellier centre',	'16:00',null,1),
+(1,'2020-12-16','montpellier centre',	'Paris centre',			'09:00',2	,2),
+(2,'2020-12-17','Paris centre',			'montpellier centre',	'16:00',2	,2),
+(2,'2020-12-18','montpellier centre',	'carnon gare',			'09:00',2	,3),
+(2,'2020-12-18','carnon gare',			'palavas',				'12:00',2	,3),
+(3,'2020-12-18','palavas',				'le cres',				'14:00',2	,3),
+(3,'2020-12-18','le cres ',				'montpellier centre',	'16:00',null,3),
+(4,'2020-05-10','montpellier centre',	'Lyon gare',			'09:00',3	,5),
+(4,'2020-05-11','montpellier centre',	'Lyon gare',			'09:00',3	,5),
+(1,'2020-05-12','montpellier centre',	'Lyon gare',			'09:00',3	,4),
+(1,'2020-05-13','montpellier centre',	'Lyon gare',			'09:00',3	,4)
 ;  
 -- RESERVATION_COVOITURAGE 
 

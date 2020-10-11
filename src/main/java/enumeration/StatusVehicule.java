@@ -1,5 +1,5 @@
 package enumeration;
 
-public enum EtatVehicule {
+public enum StatusVehicule {
     EN_SERVICE,EN_REPARATION,HORS_SERVICE
 }

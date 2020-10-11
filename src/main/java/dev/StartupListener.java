@@ -26,7 +26,6 @@ public class StartupListener {
 	private PasswordEncoder passwordEncoder;
 	private CollegueRepo collegueRepo;
 
-
 	public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo,
 			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo) {
 		this.appVersion = appVersion;
@@ -40,7 +39,7 @@ public class StartupListener {
 	public void onStart() {
 		this.versionRepo.save(new Version(appVersion));
 
-		// Création de 5 utilisateurs
+		// Création de 2 utilisateurs
 
 		Collegue col1 = new Collegue();
 		col1.setNom("Admin");
@@ -56,40 +55,8 @@ public class StartupListener {
 		col2.setPrenom("DEV");
 		col2.setEmail("user@dev.fr");
 		col2.setMotDePasse(passwordEncoder.encode("superpass"));
-		col2.setRoles(Arrays.asList(
-				new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
+		col2.setRoles(Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
 		this.collegueRepo.save(col2);
-		
-		Collegue col3 = new Collegue();
-		col3.setNom("Amianto");
-		col3.setPrenom("Sylvain");
-		col3.setEmail("cql@dev.fr");
-		col3.setMotDePasse(passwordEncoder.encode("superpass"));
-		col3.setRoles(Arrays.asList(
-				new RoleCollegue(col3, Role.ROLE_ADMINISTRATEUR),
-				new RoleCollegue(col3, Role.ROLE_CHAUFFEUR)));
-		this.collegueRepo.save(col3);
 
-		Collegue col4 = new Collegue();
-		col4.setNom("Gelaron");
-		col4.setPrenom("Delphine");
-		col4.setEmail("gelarondelphine@dev.fr");
-		col4.setMotDePasse(passwordEncoder.encode("superpass"));
-		col4.setRoles(Arrays.asList(new RoleCollegue(col4, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col4);
-		
-		Collegue col5 = new Collegue();
-		col5.setNom("Merdalhor");
-		col5.setPrenom("Robin");
-		col5.setEmail("aze@dev.fr");
-		col5.setMotDePasse(passwordEncoder.encode("superpass"));
-		col5.setRoles(Arrays.asList(
-				new RoleCollegue(col5, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col5);
-
-
-
-		
-	
 	}
 }

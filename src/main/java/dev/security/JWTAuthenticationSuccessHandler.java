@@ -2,7 +2,7 @@ package dev.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dev.dto.CollegueVM;
+import dev.dto.CollegueDtoRep;
 import dev.entity.Collegue;
 import dev.repository.CollegueRepo;
 import io.jsonwebtoken.Jwts;
@@ -64,7 +64,7 @@ public class JWTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
         Collegue collegue = collegueRepo.findByEmail(user.getUsername()).orElseThrow(() -> new IllegalArgumentException("L'email ne correspond à aucun collegue"));
 
         response.setContentType("application/json");
-        response.getWriter().write(mapper.writeValueAsString(new CollegueVM(collegue)));
+        response.getWriter().write(mapper.writeValueAsString(new CollegueDtoRep(collegue)));
 
         Map<String, Object> infosSupplementaireToken = new HashMap<>();
         infosSupplementaireToken.put("roles", rolesList);

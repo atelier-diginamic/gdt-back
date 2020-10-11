@@ -3,8 +3,8 @@ package dev.dto;
 import enumeration.CategorieVehicule;
 import enumeration.StatusVehicule;
 
-public class VehiculeSocieteDtoRep {
-	private int id;
+public class VehiculeSocieteDto {
+	private Integer id=null;
 	private String marque;
 	private String model;
 	private String immatriculation;
@@ -13,11 +13,11 @@ public class VehiculeSocieteDtoRep {
 	private CategorieVehicule categorie;
 	private int places;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

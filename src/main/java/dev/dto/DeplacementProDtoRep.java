@@ -24,7 +24,7 @@ public class DeplacementProDtoRep {
 	private int id;
 	private CollegueDtoRep reserverPar;
 	private ChauffeurDtoRep chauffeur;
-	private VehiculeSocieteDtoRep vehicule;
+	private VehiculeSocieteDto vehicule;
 	private LocalDate date;
 	private String depart;
 	private String destination;
@@ -55,11 +55,11 @@ public class DeplacementProDtoRep {
 		this.chauffeur = chauffeur;
 	}
 
-	public VehiculeSocieteDtoRep getVehicule() {
+	public VehiculeSocieteDto getVehicule() {
 		return vehicule;
 	}
 
-	public void setVehicule(VehiculeSocieteDtoRep vehicule) {
+	public void setVehicule(VehiculeSocieteDto vehicule) {
 		this.vehicule = vehicule;
 	}
 

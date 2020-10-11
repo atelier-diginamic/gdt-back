@@ -5,48 +5,49 @@ import javax.persistence.*;
 import enumeration.Role;
 
 @Entity
+@Table(name = "role_collegue")
 public class RoleCollegue {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne
+	@JoinColumn(name = "collegue_id")
+	private Collegue collegue;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "collegue_id")
-    private Collegue collegue;
+	// construct
+	public RoleCollegue() {
+	}
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+	public RoleCollegue(Collegue collegue, Role role) {
+		this.collegue = collegue;
+		this.role = role;
+	}
 
-    public RoleCollegue() {
-    }
+	// getteurSetteur
+	public Long getId() {
+		return id;
+	}
 
-    public RoleCollegue(Collegue collegue, Role role) {
-        this.collegue = collegue;
-        this.role = role;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Role getRole() {
+		return role;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
-    public Role getRole() {
-        return role;
-    }
+	public Collegue getCollegue() {
+		return collegue;
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Collegue getCollegue() {
-        return collegue;
-    }
-
-    public void setCollegue(Collegue collegue) {
-        this.collegue = collegue;
-    }
+	public void setCollegue(Collegue collegue) {
+		this.collegue = collegue;
+	}
 }

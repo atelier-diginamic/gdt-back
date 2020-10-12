@@ -36,7 +36,7 @@ public class ChauffeurCtrl {
 	
 	@GetMapping
 	public ResponseEntity<?> getAll(){
-		return ResponseEntity.ok().body(chServ.getAll());
+		return ResponseEntity.ok().body(chServ.getAllChauffeur());
 	}
 	
 	@PostMapping()

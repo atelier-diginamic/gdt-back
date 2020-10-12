@@ -31,7 +31,6 @@ public class ChauffeurCtrl {
 	private ChauffeurService chServ;
 
 	public ChauffeurCtrl(ChauffeurService chServ) {
-		super();
 		this.chServ = chServ;
 	}
 	

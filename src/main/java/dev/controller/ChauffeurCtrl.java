@@ -34,44 +34,6 @@ public class ChauffeurCtrl {
 		this.chServ = chServ;
 	}
 	
-	@GetMapping
-	public ResponseEntity<?> getAll(){
-		return ResponseEntity.ok().body(chServ.getAllChauffeur());
-	}
 	
-	@PostMapping()
-	public ResponseEntity<?> add(@Valid @RequestBody ChauffeurDtoQuery chDtoQuery, BindingResult resVal) {
-		if(!resVal.hasErrors()) {
-			try {
-				return ResponseEntity.ok().body(chServ.addEdit(chDtoQuery));
-			} catch (CollegueException e) {
-				return ResponseEntity.ok().body(e.getMessage());
-			}
-		}else {
-			return ResponseEntity.ok().body(resVal.getAllErrors());
-		}
-	}
-	
-	@PutMapping()
-	public ResponseEntity<?> edit(@Valid @RequestBody ChauffeurDtoQuery chDtoQuery, BindingResult resVal) {
-		if(!resVal.hasErrors()) {
-			try {
-				return ResponseEntity.ok().body(chServ.addEdit(chDtoQuery));
-			} catch (CollegueException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
-		}else {
-			return ResponseEntity.badRequest().body(resVal.getAllErrors());
-		}
-	}
-	@DeleteMapping
-	public ResponseEntity<?> del(@RequestParam int id){
-		try {
-			return ResponseEntity.ok().body(chServ.delete(id));
-		} catch (ChauffeurException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-		
-	}
 	
 }

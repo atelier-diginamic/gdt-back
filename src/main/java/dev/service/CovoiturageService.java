@@ -1,160 +1,160 @@
 package dev.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import dev.controller.vm.CollegueVMResponce;
-import dev.controller.vm.CovoiturageVM;
-import dev.controller.vm.CovoiturageVmResponse;
-import dev.domain.Collegue;
-import dev.domain.Covoiturage;
+import dev.dto.AnnonceCovoiturageDtoQuery;
+import dev.dto.AnnonceCovoiturageDtoRep;
+import dev.entity.AnnonceCovoiturage;
+import dev.entity.Collegue;
 import dev.exception.CollegueException;
-import dev.exception.CovoitException;
-import dev.exception.vehiculeException;
+import dev.exception.CovoiturageException;
 import dev.repository.CovoiturageRepository;
 
 @Service
 public class CovoiturageService {
 
-	private CovoiturageRepository covoitRepo;
-	private VehiculeService vehiculeServ;
+	private CovoiturageRepository covRepo;
 	private CollegueService colServ;
 
-	public CovoiturageService(CovoiturageRepository covoitRepo, VehiculeService vehiculeServ, CollegueService colServ) {
-		this.covoitRepo = covoitRepo;
-		this.vehiculeServ = vehiculeServ;
+	public CovoiturageService(CovoiturageRepository covRepo, CollegueService colServ) {
+		super();
+		this.covRepo = covRepo;
 		this.colServ = colServ;
 	}
 
-	public List<CovoiturageVmResponse> getAll() {
-
-		List<CovoiturageVmResponse> list = new ArrayList<CovoiturageVmResponse>();
-		for (Covoiturage c : covoitRepo.findAll()) {
-			list.add(covoiturageToVmResponse(c));
+	/**
+	 * recherche les covoiturages ou l'id d'un collegue est passager
+	 * 
+	 * @param id l'id du collegue a rechercher
+	 * @return unt liste de dto annonceCovoiturage
+	 */
+	public List<AnnonceCovoiturageDtoRep> getReservations(int id) {
+		List<AnnonceCovoiturageDtoRep> list = new ArrayList<AnnonceCovoiturageDtoRep>();
+		for (AnnonceCovoiturage ac : covRepo.findAllAnnonceCovoiturageByPassagerId(id)) {
+			list.add(getDtoRep(ac));
 		}
 		return list;
 	}
 
-	public List<CovoiturageVmResponse> getBy(String type, String value) throws CovoitException {
-		List<CovoiturageVmResponse> list = new ArrayList<CovoiturageVmResponse>();
-		switch (type) {
-		case "id":
-			Optional<Covoiturage> cId = covoitRepo.findById(Integer.parseInt(value));
-			if (cId.isPresent()) {
-				list.add(covoiturageToVmResponse(cId.get()));
-			} else {
-				throw new CovoitException("id non trouver");
-			}
-			break;
-		case "date":
-			// format value : "yyyy-MM-dd"
-			for (Covoiturage cDate : covoitRepo
-					.findByDate(LocalDate.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
-				list.add(covoiturageToVmResponse(cDate));
-			}
-			break;
-		case "date-before":
-			// format value : "yyyy-MM-dd HH:mm"
-			for (Covoiturage cDateBefore : covoitRepo
-					.findByDateBefore(LocalDate.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
-				list.add(covoiturageToVmResponse(cDateBefore));
-			}
-
-			break;
-		case "date-after":
-			// format value : "yyyy-mm-dd"
-			for (Covoiturage cDateAfter : covoitRepo
-					.findByDateAfter(LocalDate.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
-				list.add(covoiturageToVmResponse(cDateAfter));
-			}
-
-			break;
-		case "depart":
-			for (Covoiturage cDepart : covoitRepo.findByDepart(value)) {
-				list.add(covoiturageToVmResponse(cDepart));
-			}
-			break;
-		case "destination":
-			for (Covoiturage cDestination : covoitRepo.findByDestination(value)) {
-				list.add(covoiturageToVmResponse(cDestination));
-			}
-			break;
-		case "vehicule":
-			for (Covoiturage cVehicule : covoitRepo.findByVehicule(Integer.parseInt(value))) {
-				list.add(covoiturageToVmResponse(cVehicule));
-			}
-			break;
-		case "chauffeur":
-			for (Covoiturage cChauffeur : covoitRepo.findByChauffeur(Long.parseLong(value))) {
-				list.add(covoiturageToVmResponse(cChauffeur));
-			}
-			break;
+	/**
+	 * recherche les covoiturages ou l'id d'un collegue n'est pas passager
+	 * 
+	 * @param id l'id du collegue a rechercher
+	 * @return unt liste de dto annonceCovoiturage
+	 */
+	public List<AnnonceCovoiturageDtoRep> getReservationsNot(int id) {
+		List<AnnonceCovoiturageDtoRep> list = new ArrayList<AnnonceCovoiturageDtoRep>();
+		for (AnnonceCovoiturage ac : covRepo.findAllAnnonceCovoiturageByPassagerIdNot(id)) {
+			list.add(getDtoRep(ac));
 		}
 		return list;
-
 	}
-
-	public Covoiturage getEntityById(Integer id) throws CovoitException {
-		Optional<Covoiturage> optCovoit = covoitRepo.findById(id);
-		if (optCovoit.isPresent()) {
-			return optCovoit.get();
-		} else {
-			throw new CovoitException("id non trouver");
+	
+	/**
+	 * listes les annonces par createur
+	 * 
+	 * @param id createur des annonces a rechercher
+	 * @return une liste de AnnonceCovoiturageDtoRep
+	 * @throws CollegueException 
+	 */
+	public Object annonces(Integer id) throws CollegueException {
+		List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+		for (AnnonceCovoiturage ac : covRepo.findByCollegue(colServ.getEntityById(id))) {
+			list.add(this.getDtoRep(ac));
 		}
+		return list;
 	}
 
-	public CovoiturageVmResponse add(CovoiturageVM covoitQuery) throws vehiculeException, CollegueException {
-		Covoiturage newcovoit = covoitRepo.save(createEntity(covoitQuery));
-		return covoiturageToVmResponse(newcovoit);
+	/**
+	 * enregistre une nouvelle entre dans la table annonce_covoiturage
+	 * 
+	 * @param cDtoQuery objet envoyer depuis une application exterieur
+	 * @return un objet dto suite a l'enregistrement en bdd
+	 */
+	public Object add(AnnonceCovoiturageDtoQuery acDtoQuery) {
+		AnnonceCovoiturage ac = getEntity(acDtoQuery);
+		return getDtoRep(covRepo.save(ac));
+	}
+	/**
+	 * editer un covoiturage
+	 * @param acDtoQuery dto de requete du covoiturage a modifier
+	 * @return un objet dto d'annonce de covoiturage
+	 */
+	public AnnonceCovoiturageDtoRep edit(AnnonceCovoiturageDtoQuery acDtoQuery) {
+		AnnonceCovoiturage ac=this.getEntity(acDtoQuery);
+		return this.getDtoRep(covRepo.save(ac));
 	}
 
-//	methodes privé de la classe
+	/**
+	 * supprime un covoiturage
+	 * @param id id du covoiturage a supprimer
+	 * @return 
+	 * @throws CovoiturageException 
+	 */
+	public List<AnnonceCovoiturageDtoRep> delete(int id) throws CovoiturageException {
+		Optional<AnnonceCovoiturage> ac=covRepo.findById(id);
+		if(ac.isPresent()) {
+			covRepo.delete(ac.get());
+			List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+			for (AnnonceCovoiturage ac2 : covRepo.findAll()) {
+				list.add(this.getDtoRep(ac2));
+			}
+			return list;
+		}else throw new CovoiturageException("id covoiturage non trouvé");
+	}
 
-	private CovoiturageVmResponse covoiturageToVmResponse(Covoiturage c) {
+//	transformation  Objet <--> Dto
+	protected AnnonceCovoiturageDtoRep getDtoRep(AnnonceCovoiturage ac) {
+		AnnonceCovoiturageDtoRep acRep = new AnnonceCovoiturageDtoRep();
+		acRep.setId(ac.getId());
+		acRep.setCollegue(colServ.getDtoRep(ac.getCollegue()));
+		acRep.setDate(ac.getDate());
+		acRep.setDepart(ac.getDepart());
+		acRep.setArrive(ac.getArrive());
+		acRep.setHeureDepart(ac.getHeureDepart());
+		acRep.setMarqueVoiture(ac.getMarqueVoiture());
+		acRep.setModeleVoiture(ac.getModeleVoiture());
+		acRep.setImageUrl(ac.getImageUrl());
+		acRep.setPlace(ac.getPlace());
+		acRep.setStatus(ac.getStatus());
+		for (Collegue c : ac.getPassager()) {
+			acRep.getPassager().add(colServ.getDtoRep(c));
+		}
+		return acRep;
+	}
 
-		CovoiturageVmResponse vmResponse = new CovoiturageVmResponse();
-		vmResponse.setId(c.getId());
-		vmResponse.setDate(c.getDate());
-		vmResponse.setHeureDepart(c.getHeureDepart());
-		vmResponse.setHeureArrive(c.getHeureArriver());
-		vmResponse.setDepart(c.getDepart());
-		vmResponse.setDestination(c.getDestination());
+	protected AnnonceCovoiturage getEntity(AnnonceCovoiturageDtoQuery acDtoQuery) {
+		AnnonceCovoiturage ac = new AnnonceCovoiturage();
+
+		if (acDtoQuery.getId() != null)
+			ac.setId(acDtoQuery.getId());
+
+		ac.setDate(acDtoQuery.getDate());
+		ac.setDepart(acDtoQuery.getDepart());
+		ac.setArrive(acDtoQuery.getArrive());
+		ac.setHeureDepart(acDtoQuery.getHeureDepart());
+		ac.setMarqueVoiture(acDtoQuery.getMarqueVoiture());
+		ac.setModeleVoiture(acDtoQuery.getModeleVoiture());
+		ac.setImageUrl(acDtoQuery.getImageUrl());
+		ac.setPlace(acDtoQuery.getPlace());
+		ac.setStatus(acDtoQuery.getStatus());
 		try {
-			vmResponse.setVehicule(vehiculeServ.getById(c.getId()));
-		} catch (vehiculeException e) {
+			ac.setCollegue(colServ.getEntityById(acDtoQuery.getCollegueId()));
+			for (Integer i : acDtoQuery.getPassagersId()) {
+				ac.getPassager().add(colServ.getEntityById(i));
+			}
+		} catch (CollegueException e) {
 			e.printStackTrace();
 		}
-
-		vmResponse.setChauffeur(colServ.collegueToVMResponse(c.getChauffeur()));
-
-		List<CollegueVMResponce> listPassagerVm = new ArrayList<CollegueVMResponce>();
-		for (Collegue col : c.getPassagers()) {
-			listPassagerVm.add(colServ.collegueToVMResponse(col));
-		}
-		vmResponse.setPassagers(listPassagerVm);
-		return vmResponse;
+		return ac;
+		
 	}
 
-	private Covoiturage createEntity(CovoiturageVM cVmQuery) throws vehiculeException, CollegueException {
-		Covoiturage covoit = new Covoiturage();
-		covoit.setChauffeur(colServ.getEntityById(cVmQuery.getChauffeurId()));
-		covoit.setDate(cVmQuery.getDate());
-		covoit.setHeureDepart(cVmQuery.getHeureDepart());
-		covoit.setHeureArriver(cVmQuery.getHeureArrive());
-		
-		
-		
-		
-		covoit.setDepart(cVmQuery.getDepart());
-		covoit.setDestination(cVmQuery.getDestination());
-		covoit.setPassagers(new ArrayList<Collegue>());
-		covoit.setVehicule(vehiculeServ.getEntityById(cVmQuery.getVehiculeId()));
-		return covoit;
-	}
+
+
 
 }

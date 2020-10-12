@@ -4,121 +4,108 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
-import dev.controller.vm.VehiculeVM;
-import dev.controller.vm.VehiculeVMResponse;
-import dev.domain.Vehicule;
+import dev.dto.VehiculeSocieteDto;
+import dev.entity.VehiculeSociete;
 import dev.exception.vehiculeException;
-import dev.repository.VehiculeRepo;
+import dev.repository.vehiculeRepository;
+import enumeration.CategorieVehicule;
+import enumeration.StatusVehicule;
 
 @Service
 public class VehiculeService {
 
-	private VehiculeRepo vehiculeRepo;
+	private vehiculeRepository vehiculeRepo;
 
-	public VehiculeService(VehiculeRepo vehiculeRepo) {
+	public VehiculeService(vehiculeRepository vehiculeRepo) {
+		super();
 		this.vehiculeRepo = vehiculeRepo;
 	}
 
-
-	public List<VehiculeVMResponse> getAll() {
-		List<VehiculeVMResponse> list = new ArrayList<VehiculeVMResponse>();
-		for (Vehicule v : vehiculeRepo.findAll()) {
-			list.add(getVehiculeVmResponse(v));
+	public List<VehiculeSocieteDto> getAll() {
+		System.err.println("tezst");
+		List<VehiculeSocieteDto> list = new ArrayList<VehiculeSocieteDto>();
+		for (VehiculeSociete v : vehiculeRepo.findAll()) {
+			list.add(getDtoRep(v));
 		}
 		return list;
 	}
-	
-	public VehiculeVMResponse getById(int id) throws vehiculeException {
-		Optional<Vehicule> v = vehiculeRepo.findById(id);
-		if (v.isPresent())
-			return getVehiculeVmResponse(v.get());
-		else
-			throw new vehiculeException("erreur id inconu !");
-	}
-	
-	public Vehicule getEntityById(Integer id) throws vehiculeException {
-		Optional<Vehicule> v = vehiculeRepo.findById(id);
-		if (v.isPresent())
-			return v.get();
-		else
-			throw new vehiculeException("erreur id inconu !");
-	}
-	
 
-	public List<VehiculeVMResponse> getBy(String type, String value) throws vehiculeException {
-		List<VehiculeVMResponse> list = new ArrayList<VehiculeVMResponse>();
+	public VehiculeSocieteDto getbyId(Integer id) throws vehiculeException {
+		Optional<VehiculeSociete> vOpt = vehiculeRepo.findById(id);
+		if (vOpt.isPresent()) {
+			return this.getDtoRep(vOpt.get());
+		} else {
+			throw new vehiculeException("id vehicule non trouvée");
+		}
+	}
+
+	public List<VehiculeSocieteDto> getby(String type, String value) {
+		System.err.println(type + " " + value);
+		List<VehiculeSociete> list = null;
 		switch (type) {
-		case "id":
-			Optional<Vehicule> v = vehiculeRepo.findById(Integer.parseInt(value));
-			if (v.isPresent())
-				list.add(getVehiculeVmResponse(v.get()));
-			else
-				throw new vehiculeException("erreur id inconu !");
-			break;
 		case "marque":
-			for (Vehicule v2 : vehiculeRepo.findByMarque(value)) {
-				list.add(getVehiculeVmResponse(v2));
-			}
+			list = vehiculeRepo.findByMarque(value);
 			break;
-		case "model":
-			for (Vehicule v3 : vehiculeRepo.findByModel(value)) {
-				list.add(getVehiculeVmResponse(v3));
-			}
+		case "modele":
+			list = vehiculeRepo.findByModel(value);
 			break;
 		case "categorie":
-			for (Vehicule v4 : vehiculeRepo.findBycategorie(value)) {
-				list.add(getVehiculeVmResponse(v4));
-			}
+			value = value.trim();
+			value = value.replace(' ', '_');
+			value = value.toUpperCase();
+			list = vehiculeRepo.findByCategorie(CategorieVehicule.valueOf(value));
 			break;
-		case "immatriculation":
-			for (Vehicule v5 : vehiculeRepo.findByImmatriculation(value)) {
-				list.add(getVehiculeVmResponse(v5));
-			}
-			break;
+
 		}
-
-		return list;
+		List<VehiculeSocieteDto> listDto = new ArrayList<VehiculeSocieteDto>();
+		for (VehiculeSociete vDto : list) {
+			listDto.add(this.getDtoRep(vDto));
+		}
+		return listDto;
 	}
 
-	
-	public VehiculeVMResponse add(VehiculeVM vehicumeVm) {
-		Vehicule nouveau=createEntity(vehicumeVm);
-		return getVehiculeVmResponse(vehiculeRepo.save(nouveau));
+	public VehiculeSocieteDto edit(VehiculeSocieteDto vDto) {
+		VehiculeSociete v = this.getEntity(vDto);
+		return this.getDtoRep(vehiculeRepo.save(v));
 	}
-	
 
-	
-	
-	
-	
-//methodes prive de la class
-	private VehiculeVMResponse getVehiculeVmResponse(Vehicule v) {
-		VehiculeVMResponse vmResponse = new VehiculeVMResponse();
-		vmResponse.setCategorie(v.getCategorie());
-		vmResponse.setId(v.getId());
-		vmResponse.setImmatriculation(v.getImmatriculation());
-		vmResponse.setMarque(v.getMarque());
-		vmResponse.setModel(v.getModel());
-		vmResponse.setNbr_places(v.getNbr_places());
-		vmResponse.setEtat(v.getEtat());
-		vmResponse.setUrlImage(v.getUrlImage());
-		return vmResponse;
+	protected VehiculeSociete getEntityById(int id) throws vehiculeException {
+		Optional<VehiculeSociete> optV = vehiculeRepo.findById(id);
+		if (optV.isPresent())
+			return optV.get();
+		else
+			throw new vehiculeException("Id vehicule non trouvée");
 	}
-	
-	private Vehicule createEntity(VehiculeVM vVm) {
-		Vehicule v=new Vehicule();
-		
-		if(vVm.getId()!=null) v.setId(vVm.getId());
-		
-		v.setCategorie(vVm.getCategorie());
-		v.setImmatriculation(vVm.getImmatriculation());
-		v.setMarque(vVm.getMarque());
-		v.setModel(vVm.getModel());
-		v.setNbr_places(vVm.getNbr_places());
-		v.setEtat(vVm.getEtat());
-		v.setUrlImage(vVm.getUrlImage());
+
+	// transformation dto<-->entite
+	protected VehiculeSocieteDto getDtoRep(VehiculeSociete v) {
+		VehiculeSocieteDto vDto = new VehiculeSocieteDto();
+		vDto.setId(v.getId());
+		vDto.setCategorie(v.getCategorie());
+		vDto.setImageUrl(v.getImageUrl());
+		vDto.setImmatriculation(v.getImmatriculation());
+		vDto.setMarque(v.getMarque());
+		vDto.setModel(v.getModel());
+		vDto.setPlaces(v.getPlaces());
+		vDto.setStatus(v.getStatus());
+		return vDto;
+	}
+
+	protected VehiculeSociete getEntity(VehiculeSocieteDto vDto) {
+		VehiculeSociete v = new VehiculeSociete();
+		if (vDto.getId() != null)
+			v.setId(vDto.getId());
+		v.setImmatriculation(vDto.getImmatriculation());
+		v.setCategorie(vDto.getCategorie());
+		v.setImageUrl(vDto.getImageUrl());
+		v.setMarque(vDto.getMarque());
+		v.setModel(vDto.getModel());
+		v.setPlaces(vDto.getPlaces());
+		v.setStatus(vDto.getStatus());
 		return v;
 	}
 

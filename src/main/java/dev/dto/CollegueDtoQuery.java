@@ -1,27 +1,24 @@
-package dev.controller.vm;
+package dev.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.domain.Role;
+import enumeration.Role;
 
-public class CollegueVMResponce {
+public class CollegueDtoQuery {
 
-	private Long id;
+	private Integer id = null;
 	private String email;
 	private String nom;
 	private String prenom;
 	private List<Role> roles = new ArrayList<>();
+	private String motDePasse = null;
 
-	
-	
-	
-	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -55,6 +52,14 @@ public class CollegueVMResponce {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
 	}
 
 }

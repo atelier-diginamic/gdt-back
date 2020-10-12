@@ -1,0 +1,113 @@
+package dev.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Service;
+
+import dev.dto.AnnonceCovoiturageDtoQuery;
+import dev.dto.DeplacementProDtoQuery;
+import dev.dto.DeplacementProDtoRep;
+import dev.entity.AnnonceCovoiturage;
+import dev.entity.Collegue;
+import dev.entity.DeplacementPro;
+import dev.exception.ChauffeurException;
+import dev.exception.CollegueException;
+import dev.exception.DeplacementProException;
+import dev.exception.vehiculeException;
+import dev.repository.DeplacementProRepository;
+
+@Service
+public class DeplacementProService {
+
+	private DeplacementProRepository dpRepo;
+	private CollegueService colServ;
+	private ChauffeurService chauffeurServ;
+	private VehiculeService vehiculeServ;
+
+	public DeplacementProService(DeplacementProRepository dpRepo, CollegueService colServ,
+			ChauffeurService chauffeurServ, VehiculeService vehiculeServ) {
+		super();
+		this.dpRepo = dpRepo;
+		this.colServ = colServ;
+		this.chauffeurServ = chauffeurServ;
+		this.vehiculeServ = vehiculeServ;
+	}
+
+	public List<DeplacementProDtoRep> getDeplacement(int id) {
+		List<DeplacementProDtoRep> list = new ArrayList<DeplacementProDtoRep>();
+		for (DeplacementPro dp : dpRepo.findByReserverParId(id)) {
+			list.add(this.getDtoRep(dp));
+		}
+
+		return list;
+	}
+
+	public DeplacementProDtoRep addPassager(int idDeplacement, int idCollegue)
+			throws DeplacementProException, CollegueException {
+		Optional<DeplacementPro> dpOpt = dpRepo.findById(idDeplacement);
+		if (dpOpt.isPresent()) {
+			DeplacementPro dp = dpOpt.get();
+			Collegue col = colServ.getEntityById(idCollegue);
+			if (!dp.getPassager().contains(col)) {
+				dp.getPassager().add(col);
+				return this.getDtoRep(dpRepo.save(dp));
+			} else {
+				throw new DeplacementProException("ce collegue est deja passager");
+			}
+		} else {
+			throw new DeplacementProException("id deplacement pro introuvable !");
+		}
+
+	}
+
+	public DeplacementProDtoRep add(DeplacementProDtoQuery dpQuery)
+			throws ChauffeurException, CollegueException, vehiculeException {
+
+		DeplacementPro dp = getEntity(dpQuery);
+
+		return getDtoRep(dpRepo.save(dp));
+	}
+
+	// transformation dto<-->entite
+	protected DeplacementProDtoRep getDtoRep(DeplacementPro dp) {
+		DeplacementProDtoRep dpRep = new DeplacementProDtoRep();
+		dpRep.setId(dp.getId());
+		dpRep.setReserverPar(colServ.getDtoRep(dp.getReserverPar()));
+
+		if (dp.getChauffeur() != null)
+			dpRep.setChauffeur(chauffeurServ.getDtoRep(dp.getChauffeur()));
+
+		dpRep.setDate(dp.getDate());
+		dpRep.setDepart(dp.getDepart());
+		dpRep.setDestination(dp.getDestination());
+		dpRep.setHeureDepart(dp.getHeureDepart());
+
+		dpRep.setVehicule(vehiculeServ.getDtoRep(dp.getVehicule()));
+		for (Collegue col : dp.getPassager()) {
+			dpRep.getPassager().add(colServ.getDtoRep(col));
+		}
+		return dpRep;
+	}
+
+	protected DeplacementPro getEntity(DeplacementProDtoQuery dpQuery)
+			throws ChauffeurException, CollegueException, vehiculeException {
+		DeplacementPro dp = new DeplacementPro();
+
+		if (dpQuery.getId() != null)
+			dp.setId(dpQuery.getId());
+
+		dp.setChauffeur(chauffeurServ.getEntityById(dpQuery.getChauffeurId()));
+		dp.setDate(dpQuery.getDate());
+		dp.setDepart(dpQuery.getDepart());
+		dp.setDestination(dpQuery.getDestination());
+		dp.setHeureDepart(dpQuery.getHeureDepart());
+		dp.setReserverPar(colServ.getEntityById(dpQuery.getReserverParId()));
+		dp.setVehicule(vehiculeServ.getEntityById(dpQuery.getVehiculeId()));
+		return dp;
+	}
+
+}

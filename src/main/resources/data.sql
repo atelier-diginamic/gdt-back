@@ -1,6 +1,6 @@
 -- collegues
 insert into collegue(email,mot_de_passe,nom,prenom) values
-('cql@dev.fr','2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Amianto','Sylvain'),   
+('cql@dev.fr','$2a$10$LCCSfzoFdRgd8xv9Iyc5juTFcQGRGgbHPoS6S3UEUbrGremblc.hW','Amianto','Sylvain'),   
 ('marchumbut@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Humbut','Marc'),   
 ('gelarondelphine@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Gelaron','Delphine'),   
 ('robinmerdhalor@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Merdhalor','Robin'), 

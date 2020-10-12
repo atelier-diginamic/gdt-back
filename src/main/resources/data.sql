@@ -1,10 +1,10 @@
 -- collegues
 insert into collegue(email,mot_de_passe,nom,prenom) values
 ('cql@dev.fr','$2a$10$LCCSfzoFdRgd8xv9Iyc5juTFcQGRGgbHPoS6S3UEUbrGremblc.hW','Amianto','Sylvain'),   
-('marchumbut@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Humbut','Marc'),   
-('gelarondelphine@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Gelaron','Delphine'),   
-('robinmerdhalor@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','Merdhalor','Robin'), 
-('sarahkroche@dev.fr','$2a$10$pM8.nSHiHe11QwV2V0nk2.xEOPlhBMKGOWAaKak1nSerKsJp0AV8m','kroche','Sarah')
+('marchumbut@dev.fr','$2a$10$HiAgx1Ivi2zDdhaz62u1guV2SQqpprS0Mzoe959PORXAIEw4ut8Ni','Humbut','Marc'),   
+('gelarondelphine@dev.fr','$2a$10$9FDS4Xxt4CRy8zjDzwDgwOeq.Ps/Qu9f4bfwQVhB8eC.aO0r14fky','Gelaron','Delphine'),   
+('robinmerdhalor@dev.fr','$2a$10$0IYvp/DOhFdsmvZ8d1pbTOAvrNmdAnY6QboktbwnkahmlEC.QjOky','Merdhalor','Robin'), 
+('sarahkroche@dev.fr','$2a$10$HNV5dVRmSoSAXtWxQHZ/Ye14au/9LxID755.A9YYfcQqxW059Yrzy','kroche','Sarah')
 ;
 -- chauffeur
 insert into chauffeur(matricule, permis, telephone, id_collegue) values('cql0001','B', '0123456789',1);

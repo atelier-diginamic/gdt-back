@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.dto.VehiculeSocieteDto;
 import dev.exception.vehiculeException;
-import dev.repository.vehiculeRepository;
 import dev.service.VehiculeService;
 
 @RestController
@@ -45,6 +45,16 @@ public class VehiculeCtrl {
 			return ResponseEntity.ok().body(vehiculeServ.getbyId(id));
 		} catch (vehiculeException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> add(@Valid @RequestBody VehiculeSocieteDto vDto, BindingResult resVal) {
+		if(!resVal.hasErrors()) {
+			return ResponseEntity.ok().body(vehiculeServ.edit(vDto));
+		}
+		else {
+			return ResponseEntity.badRequest().body(resVal.getAllErrors());
 		}
 	}
 	

@@ -114,9 +114,9 @@ public class StartupListener {
 		this.collegueRepo.save(col5);
 		
 		Collegue col6 = new Collegue();
-		col6.setNom("Dhalor");
-		col6.setPrenom("Homer");
-		col6.setEmail("dhalor@dev.fr");
+		col6.setNom("Kroche");
+		col6.setPrenom("Sarah");
+		col6.setEmail("kroche@dev.fr");
 		col6.setMotDePasse(passwordEncoder.encode("superpass"));
 		col6.setRoles(Arrays.asList(new RoleCollegue(col6, Role.ROLE_CHAUFFEUR)));
 		this.collegueRepo.save(col6);
@@ -131,8 +131,8 @@ public class StartupListener {
 		this.collegueRepo.save(col7);
 
 		Collegue col8 = new Collegue();
-		col8.setNom("Clover");
-		col8.setPrenom("Woop");
+		col8.setNom("Woop");
+		col8.setPrenom("Clover");
 		col8.setEmail("clover@dev.fr");
 		col8.setMotDePasse(passwordEncoder.encode("superpass"));
 		col8.setRoles(Arrays.asList(new RoleCollegue(col8, Role.ROLE_ADMINISTRATEUR),
@@ -142,7 +142,7 @@ public class StartupListener {
 		Collegue col9 = new Collegue();
 		col9.setNom("Woop");
 		col9.setPrenom("Alex");
-		col9.setEmail("admin@dev.fr");
+		col9.setEmail("alex@dev.fr");
 		col9.setMotDePasse(passwordEncoder.encode("superpass"));
 		col9.setRoles(Arrays.asList(new RoleCollegue(col9, Role.ROLE_ADMINISTRATEUR),
 				new RoleCollegue(col9, Role.ROLE_UTILISATEUR)));

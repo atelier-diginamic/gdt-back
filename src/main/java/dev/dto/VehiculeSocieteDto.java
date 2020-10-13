@@ -9,7 +9,7 @@ public class VehiculeSocieteDto {
 	private String model;
 	private String immatriculation;
 	private String imageUrl;
-	private StatusVehicule status;
+	private StatusVehicule status=StatusVehicule.EN_SERVICE;
 	private CategorieVehicule categorie;
 	private int places;
 

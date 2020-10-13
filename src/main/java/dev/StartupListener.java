@@ -8,9 +8,11 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import dev.entity.Chauffeur;
 import dev.entity.Collegue;
 import dev.entity.RoleCollegue;
 import dev.entity.Version;
+import dev.repository.ChauffeurRepository;
 import dev.repository.CollegueRepo;
 import dev.repository.VersionRepo;
 import enumeration.Role;
@@ -25,13 +27,15 @@ public class StartupListener {
 	private VersionRepo versionRepo;
 	private PasswordEncoder passwordEncoder;
 	private CollegueRepo collegueRepo;
+	private ChauffeurRepository chRepo;
 
 	public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo,
-			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo) {
+			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo, ChauffeurRepository chRepo) {
 		this.appVersion = appVersion;
 		this.versionRepo = versionRepo;
 		this.passwordEncoder = passwordEncoder;
 		this.collegueRepo = collegueRepo;
+		this.chRepo=chRepo;
 
 	}
 
@@ -56,7 +60,6 @@ public class StartupListener {
 		col2.setEmail("user@dev.fr");
 		col2.setMotDePasse(passwordEncoder.encode("superpass"));
 		col2.setRoles(Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
-		this.collegueRepo.save(col2);
-
+		this.collegueRepo.save(col2);		
 	}
 }

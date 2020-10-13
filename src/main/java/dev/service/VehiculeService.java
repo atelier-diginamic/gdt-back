@@ -54,7 +54,7 @@ public class VehiculeService {
 			list = vehiculeRepo.findByModel(value);
 			break;
 		case "immatriculation":
-			list = vehiculeRepo.findByModel(value);
+			list = vehiculeRepo.findByImmatriculation(value);
 			break;
 		
 		case "categorie":

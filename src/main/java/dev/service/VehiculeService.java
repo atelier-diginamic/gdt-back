@@ -53,6 +53,10 @@ public class VehiculeService {
 		case "modele":
 			list = vehiculeRepo.findByModel(value);
 			break;
+		case "immatriculation":
+			list = vehiculeRepo.findByModel(value);
+			break;
+		
 		case "categorie":
 			value = value.trim();
 			value = value.replace(' ', '_');

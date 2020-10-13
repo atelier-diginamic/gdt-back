@@ -42,26 +42,18 @@ public class StartupListener {
 	private CovoiturageRepository acRepo;
 	private vehiculeRepository vehicRepo;
 	private DeplacementProRepository dpRepo;
-	
-	
 
-	public StartupListener(@Value("${app.version}") String appVersion, 
-			VersionRepo versionRepo,
-			PasswordEncoder passwordEncoder, 
-			CollegueRepo collegueRepo, 
-			ChauffeurRepository chRepo,
-			CovoiturageRepository acRepo,
-			vehiculeRepository vehicRepo,
-			DeplacementProRepository dpRepo
-			) {
+	public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo,
+			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo, ChauffeurRepository chRepo,
+			CovoiturageRepository acRepo, vehiculeRepository vehicRepo, DeplacementProRepository dpRepo) {
 		this.appVersion = appVersion;
 		this.versionRepo = versionRepo;
 		this.passwordEncoder = passwordEncoder;
 		this.collegueRepo = collegueRepo;
 		this.chRepo = chRepo;
-		this.acRepo=acRepo;
-		this.vehicRepo=vehicRepo;
-		this.dpRepo=dpRepo;
+		this.acRepo = acRepo;
+		this.vehicRepo = vehicRepo;
+		this.dpRepo = dpRepo;
 
 	}
 
@@ -101,8 +93,8 @@ public class StartupListener {
 		col4.setPrenom("Delphine");
 		col4.setEmail("gelaron@dev.fr");
 		col4.setMotDePasse(passwordEncoder.encode("superpass"));
-		col4.setRoles(
-				Arrays.asList(new RoleCollegue(col4, Role.ROLE_CHAUFFEUR), new RoleCollegue(col4, Role.ROLE_UTILISATEUR)));
+		col4.setRoles(Arrays.asList(new RoleCollegue(col4, Role.ROLE_CHAUFFEUR),
+				new RoleCollegue(col4, Role.ROLE_UTILISATEUR)));
 		this.collegueRepo.save(col4);
 
 		Collegue col5 = new Collegue();
@@ -112,7 +104,7 @@ public class StartupListener {
 		col5.setMotDePasse(passwordEncoder.encode("superpass"));
 		col5.setRoles(Arrays.asList(new RoleCollegue(col5, Role.ROLE_CHAUFFEUR)));
 		this.collegueRepo.save(col5);
-		
+
 		Collegue col6 = new Collegue();
 		col6.setNom("Kroche");
 		col6.setPrenom("Sarah");
@@ -156,31 +148,31 @@ public class StartupListener {
 		ch1.setPermis("B");
 		ch1.setTelephone("0123456789");
 		chRepo.save(ch1);
-		
+
 		Chauffeur ch2 = new Chauffeur();
 		ch2.setInfo(col4);
 		ch2.setMatricule("sylA2405");
 		ch2.setPermis("B");
 		ch2.setTelephone("0123456789");
 		chRepo.save(ch2);
-		
+
 		Chauffeur ch3 = new Chauffeur();
 		ch3.setInfo(col5);
 		ch3.setMatricule("sylA2405");
 		ch3.setPermis("B");
 		ch3.setTelephone("0123456789");
 		chRepo.save(ch3);
-		
+
 		Chauffeur ch4 = new Chauffeur();
 		ch4.setInfo(col6);
 		ch4.setMatricule("sylA2405");
 		ch4.setPermis("B");
 		ch4.setTelephone("0123456789");
 		chRepo.save(ch4);
-		
+
 		// ANNONCE_COVOITURAGE
 
-		AnnonceCovoiturage ac1=new AnnonceCovoiturage();
+		AnnonceCovoiturage ac1 = new AnnonceCovoiturage();
 		ac1.setArrive("adrArrive1");
 		ac1.setCollegue(col1);
 		ac1.setDate(LocalDate.of(2020, 12, 10));
@@ -194,8 +186,8 @@ public class StartupListener {
 		ac1.setPlace(5);
 		ac1.setStatus(StatusAnnonce.EN_COURS);
 		acRepo.save(ac1);
-		
-		AnnonceCovoiturage ac2=new AnnonceCovoiturage();
+
+		AnnonceCovoiturage ac2 = new AnnonceCovoiturage();
 		ac2.setArrive("adrArrive2");
 		ac2.setCollegue(col9);
 		ac2.setDate(LocalDate.of(2020, 12, 9));
@@ -209,8 +201,8 @@ public class StartupListener {
 		ac2.setPlace(2);
 		ac2.setStatus(StatusAnnonce.EN_COURS);
 		acRepo.save(ac2);
-		
-		AnnonceCovoiturage ac3=new AnnonceCovoiturage();
+
+		AnnonceCovoiturage ac3 = new AnnonceCovoiturage();
 		ac3.setArrive("adrArrive3");
 		ac3.setCollegue(col8);
 		ac3.setDate(LocalDate.of(2020, 12, 20));
@@ -221,12 +213,12 @@ public class StartupListener {
 		ac3.setModeleVoiture("Laguna");
 		ac3.getPassager().add(col3);
 		ac3.getPassager().add(col4);
-    ac3.getPassager().add(col5);
+		ac3.getPassager().add(col5);
 		ac3.setPlace(5);
 		ac3.setStatus(StatusAnnonce.EN_COURS);
 		acRepo.save(ac3);
-		
-		AnnonceCovoiturage ac4=new AnnonceCovoiturage();
+
+		AnnonceCovoiturage ac4 = new AnnonceCovoiturage();
 		ac4.setArrive("adrArrive4");
 		ac4.setCollegue(col8);
 		ac4.setDate(LocalDate.of(2020, 12, 20));
@@ -238,8 +230,8 @@ public class StartupListener {
 		ac4.setPlace(5);
 		ac4.setStatus(StatusAnnonce.EN_COURS);
 		acRepo.save(ac4);
-		
-		AnnonceCovoiturage ac5=new AnnonceCovoiturage();
+
+		AnnonceCovoiturage ac5 = new AnnonceCovoiturage();
 		ac5.setArrive("adrArrive5");
 		ac5.setCollegue(col7);
 		ac5.setDate(LocalDate.of(2020, 12, 10));
@@ -253,12 +245,13 @@ public class StartupListener {
 		ac5.setPlace(5);
 		ac5.setStatus(StatusAnnonce.EN_COURS);
 		acRepo.save(ac5);
-		
+
 		// VEHICULE_SOCIETE
 
-		VehiculeSociete vs1=new VehiculeSociete();
+		VehiculeSociete vs1 = new VehiculeSociete();
 		vs1.setCategorie(CategorieVehicule.BERLINES_TAILLE_L);
-		vs1.setImageUrl("https://images.caradisiac.com/logos-ref/modele/modele--opel-meriva/S7-modele--opel-meriva.jpg");
+		vs1.setImageUrl(
+				"https://images.caradisiac.com/logos-ref/modele/modele--opel-meriva/S7-modele--opel-meriva.jpg");
 		vs1.setImmatriculation("AA-123-BB");
 		vs1.setMarque("Opel");
 		vs1.setModel("Meriva");
@@ -266,7 +259,7 @@ public class StartupListener {
 		vs1.setStatus(StatusVehicule.EN_SERVICE);
 		vehicRepo.save(vs1);
 
-		VehiculeSociete vs2=new VehiculeSociete();
+		VehiculeSociete vs2 = new VehiculeSociete();
 		vs2.setCategorie(CategorieVehicule.BERLINES_TAILLE_M);
 		vs2.setImageUrl("https://www.largus.fr/images/images/volkswagen-passat-restylee-2019-0.jpg");
 		vs2.setImmatriculation("AB-123-BB");
@@ -276,9 +269,10 @@ public class StartupListener {
 		vs2.setStatus(StatusVehicule.EN_SERVICE);
 		vehicRepo.save(vs2);
 
-		VehiculeSociete vs3=new VehiculeSociete();
+		VehiculeSociete vs3 = new VehiculeSociete();
 		vs3.setCategorie(CategorieVehicule.BERLINES_TAILLE_S);
-		vs3.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Renault_Laguna_III_Phase_I.JPG/280px-Renault_Laguna_III_Phase_I.JPG");
+		vs3.setImageUrl(
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Renault_Laguna_III_Phase_I.JPG/280px-Renault_Laguna_III_Phase_I.JPG");
 		vs3.setImmatriculation("AC-123-CC");
 		vs3.setMarque("Renault");
 		vs3.setModel("Laguna");
@@ -286,9 +280,10 @@ public class StartupListener {
 		vs3.setStatus(StatusVehicule.HORS_SERVICE);
 		vehicRepo.save(vs3);
 
-		VehiculeSociete vs4=new VehiculeSociete();
-		vs4.setCategorie(CategorieVehicule.Citadines_POLYVALENTES);
-		vs4.setImageUrl("https://www.viinz.com/wp-content/uploads/2017/09/essai-citroen-c3-shine-110-bvm-exterieur-93.jpg");
+		VehiculeSociete vs4 = new VehiculeSociete();
+		vs4.setCategorie(CategorieVehicule.CITADINES_POLYVALENTES);
+		vs4.setImageUrl(
+				"https://www.viinz.com/wp-content/uploads/2017/09/essai-citroen-c3-shine-110-bvm-exterieur-93.jpg");
 		vs4.setImmatriculation("AD-123-DD");
 		vs4.setMarque("Citroen");
 		vs4.setModel("C3");
@@ -296,9 +291,10 @@ public class StartupListener {
 		vs4.setStatus(StatusVehicule.EN_REPARATION);
 		vehicRepo.save(vs4);
 
-		VehiculeSociete vs5=new VehiculeSociete();
+		VehiculeSociete vs5 = new VehiculeSociete();
 		vs5.setCategorie(CategorieVehicule.MICRO_URBAINES);
-		vs5.setImageUrl("https://images.caradisiac.com/images/4/2/5/8/174258/S0-salon-de-geneve-2019-toyota-aygo-nouvelles-versions-x-style-et-x-cite-580611.jpg");
+		vs5.setImageUrl(
+				"https://images.caradisiac.com/images/4/2/5/8/174258/S0-salon-de-geneve-2019-toyota-aygo-nouvelles-versions-x-style-et-x-cite-580611.jpg");
 		vs5.setImmatriculation("AE-123-EE");
 		vs5.setMarque("Toyota");
 		vs5.setModel("Aygo");
@@ -306,9 +302,10 @@ public class StartupListener {
 		vs5.setStatus(StatusVehicule.EN_SERVICE);
 		vehicRepo.save(vs5);
 
-		VehiculeSociete vs6=new VehiculeSociete();
+		VehiculeSociete vs6 = new VehiculeSociete();
 		vs6.setCategorie(CategorieVehicule.MINI_CITADINES);
-		vs6.setImageUrl("https://www.turbo.fr/sites/default/files/styles/article_690x405/public/migration/newscast/field_image/000000007967837.jpg");
+		vs6.setImageUrl(
+				"https://www.turbo.fr/sites/default/files/styles/article_690x405/public/migration/newscast/field_image/000000007967837.jpg");
 		vs6.setImmatriculation("AF-123-FF");
 		vs6.setMarque("Renault");
 		vs6.setModel("Twizy");
@@ -316,7 +313,7 @@ public class StartupListener {
 		vs6.setStatus(StatusVehicule.EN_SERVICE);
 		vehicRepo.save(vs6);
 
-		VehiculeSociete vs7=new VehiculeSociete();
+		VehiculeSociete vs7 = new VehiculeSociete();
 		vs7.setCategorie(CategorieVehicule.SUV_TOUT_TERRAINS_PICK_UP);
 		vs7.setImageUrl("https://www.asphalte.ch/news/wp-content/uploads/2019/07/BMW-X6-2020-04.jpg");
 		vs7.setImmatriculation("AG-123-GG");
@@ -326,9 +323,10 @@ public class StartupListener {
 		vs7.setStatus(StatusVehicule.EN_REPARATION);
 		vehicRepo.save(vs7);
 
-		VehiculeSociete vs8=new VehiculeSociete();
+		VehiculeSociete vs8 = new VehiculeSociete();
 		vs8.setCategorie(CategorieVehicule.BERLINES_TAILLE_S);
-		vs8.setImageUrl("https://images.caradisiac.com/images/7/0/5/6/177056/S0-essai-video-mercedes-classe-a-berline-595128.jpg");
+		vs8.setImageUrl(
+				"https://images.caradisiac.com/images/7/0/5/6/177056/S0-essai-video-mercedes-classe-a-berline-595128.jpg");
 		vs8.setImmatriculation("AH-123-HH");
 		vs8.setMarque("Mercedes");
 		vs8.setModel("Classe A");
@@ -336,7 +334,7 @@ public class StartupListener {
 		vs8.setStatus(StatusVehicule.EN_SERVICE);
 		vehicRepo.save(vs8);
 
-		VehiculeSociete vs9=new VehiculeSociete();
+		VehiculeSociete vs9 = new VehiculeSociete();
 		vs9.setCategorie(CategorieVehicule.SUV_TOUT_TERRAINS_PICK_UP);
 		vs9.setImageUrl("https://cdn.carizy.com/carphotos/2299/wide/opel-zafira-occasion-2011-avant-gauche.jpg");
 		vs9.setImmatriculation("AI-123-II");
@@ -347,7 +345,7 @@ public class StartupListener {
 		vehicRepo.save(vs9);
 		// DEPLACEMENT_PRO
 //		(chauff : 3 4 5 6)
-		DeplacementPro dp1=new DeplacementPro();
+		DeplacementPro dp1 = new DeplacementPro();
 		dp1.setChauffeur(ch1);
 		dp1.setDate(LocalDate.of(2020, 12, 1));
 		dp1.setDepart("adresse depart 1");
@@ -359,8 +357,8 @@ public class StartupListener {
 		dp1.setReserverPar(col1);
 		dp1.setVehicule(vs1);
 		dpRepo.save(dp1);
-		
-		DeplacementPro dp2=new DeplacementPro();
+
+		DeplacementPro dp2 = new DeplacementPro();
 		dp2.setChauffeur(ch1);
 		dp2.setDate(LocalDate.of(2020, 12, 12));
 		dp2.setDepart("adresse depart 2");
@@ -371,8 +369,8 @@ public class StartupListener {
 		dp2.setReserverPar(col7);
 		dp2.setVehicule(vs5);
 		dpRepo.save(dp2);
-		
-		DeplacementPro dp3=new DeplacementPro();
+
+		DeplacementPro dp3 = new DeplacementPro();
 		dp3.setChauffeur(ch2);
 		dp3.setDate(LocalDate.of(2020, 11, 25));
 		dp3.setDepart("adresse depart 3");
@@ -384,8 +382,8 @@ public class StartupListener {
 		dp3.setReserverPar(col9);
 		dp3.setVehicule(vs1);
 		dpRepo.save(dp1);
-		
-		DeplacementPro dp4=new DeplacementPro();
+
+		DeplacementPro dp4 = new DeplacementPro();
 		dp4.setChauffeur(ch3);
 		dp4.setDate(LocalDate.of(2020, 12, 11));
 		dp4.setDepart("adresse depart 4");
@@ -396,8 +394,8 @@ public class StartupListener {
 		dp4.setReserverPar(col9);
 		dp4.setVehicule(vs7);
 		dpRepo.save(dp4);
-		
-		DeplacementPro dp5=new DeplacementPro();
+
+		DeplacementPro dp5 = new DeplacementPro();
 		dp5.setChauffeur(ch1);
 		dp5.setDate(LocalDate.of(2019, 12, 1));
 		dp5.setDepart("adresse depart 5");
@@ -407,8 +405,8 @@ public class StartupListener {
 		dp5.setReserverPar(col1);
 		dp5.setVehicule(vs1);
 		dpRepo.save(dp5);
-		
-		DeplacementPro dp6=new DeplacementPro();
+
+		DeplacementPro dp6 = new DeplacementPro();
 		dp6.setChauffeur(ch1);
 		dp6.setDate(LocalDate.of(2019, 12, 12));
 		dp6.setDepart("adresse depart 6");
@@ -418,8 +416,8 @@ public class StartupListener {
 		dp6.setReserverPar(col9);
 		dp6.setVehicule(vs9);
 		dpRepo.save(dp6);
-		
-		DeplacementPro dp7=new DeplacementPro();
+
+		DeplacementPro dp7 = new DeplacementPro();
 		dp7.setChauffeur(ch3);
 		dp7.setDate(LocalDate.of(2020, 12, 4));
 		dp7.setDepart("adresse depart 7");

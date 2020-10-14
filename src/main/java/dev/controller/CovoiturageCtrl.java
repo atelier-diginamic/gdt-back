@@ -30,7 +30,8 @@ public class CovoiturageCtrl {
 		super();
 		this.covServ = covServ;
 	}
-
+	//@GetMapping(params = lieuDepart)
+	
 	@GetMapping("/reservation")
 	public ResponseEntity<?> getReservations(@RequestParam int id) {
 		return ResponseEntity.ok().body(covServ.getReservations(id));

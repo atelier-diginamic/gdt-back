@@ -60,6 +60,12 @@ public class DeplacementProService {
 		return list;
 	}
 
+	/**
+	 * recupere les informations des vehicule de sofiete reserver avant aujourd'hui
+	 * @param id vehivule rechercher
+	 * @return un objet contenant les infos du vehivule
+	 * @throws vehiculeException si l'id n'existe pas
+	 */
 	public List<VehiculeReserveDto> getArchiveVehicule(int id) throws vehiculeException {
 
 		VehiculeSociete v = vehiculeServ.getEntityById(id);

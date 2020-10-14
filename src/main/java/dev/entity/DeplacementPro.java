@@ -33,7 +33,6 @@ public class DeplacementPro {
 	@ManyToOne
 	@JoinColumn(name = "id_vehicule")
 	private VehiculeSociete vehicule;
-
 	@Column(name = "date_emprun", columnDefinition = "date")
 	private LocalDate dateEmprun;
 	@Column(name = "date_restitution", columnDefinition = "date")
@@ -42,7 +41,7 @@ public class DeplacementPro {
 	private LocalTime heureEmprun;
 	@Column(name = "heure_restitution", columnDefinition = "time")
 	private LocalTime heureRestitution;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -106,5 +105,4 @@ public class DeplacementPro {
 	public void setHeureRestitution(LocalTime heureRestitution) {
 		this.heureRestitution = heureRestitution;
 	}
-
 }

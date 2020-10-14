@@ -13,7 +13,6 @@ public interface DeplacementProRepository extends JpaRepository<DeplacementPro, 
 
 	List<DeplacementPro> findByReserverPar(Collegue collegueId);
 	List<DeplacementPro> findByVehicule(VehiculeSociete id);
-	
 	List<DeplacementPro> findByVehiculeAndDateRestitutionAfter(VehiculeSociete id, LocalDate date);
 	List<DeplacementPro> findByVehiculeAndDateRestitutionBefore(VehiculeSociete v, LocalDate date);
 	

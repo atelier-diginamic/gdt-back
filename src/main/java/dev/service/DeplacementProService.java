@@ -1,5 +1,6 @@
 package dev.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Service;
 import dev.dto.AnnonceCovoiturageDtoQuery;
 import dev.dto.DeplacementProDtoQuery;
 import dev.dto.DeplacementProDtoRep;
+import dev.dto.VehiculeReserveDto;
 import dev.entity.AnnonceCovoiturage;
 import dev.entity.Collegue;
 import dev.entity.DeplacementPro;
+import dev.entity.VehiculeSociete;
 import dev.exception.ChauffeurException;
 import dev.exception.CollegueException;
 import dev.exception.DeplacementProException;
@@ -43,6 +46,26 @@ public class DeplacementProService {
 			list.add(this.getDtoRep(dp));
 		}
 
+		return list;
+	}
+	
+	public List<VehiculeReserveDto> getReservationVehicule(int id) throws vehiculeException {
+		
+		VehiculeSociete v=vehiculeServ.getEntityById(id);
+		List<VehiculeReserveDto> list=new ArrayList<VehiculeReserveDto>();
+		for (DeplacementPro dp : dpRepo.findByVehiculeAndDateAfter(v, LocalDate.now().minusDays(1))) {
+			list.add(new VehiculeReserveDto(dp));
+		}
+		return list;
+	}
+	
+	public List<VehiculeReserveDto> getArchiveVehicule(int id) throws vehiculeException {
+		
+		VehiculeSociete v=vehiculeServ.getEntityById(id);
+		List<VehiculeReserveDto> list=new ArrayList<VehiculeReserveDto>();
+		for (DeplacementPro dp : dpRepo.findByVehiculeAndDateBefore(v, LocalDate.now())) {
+			list.add(new VehiculeReserveDto(dp));
+		}
 		return list;
 	}
 
@@ -109,5 +132,7 @@ public class DeplacementProService {
 		dp.setVehicule(vehiculeServ.getEntityById(dpQuery.getVehiculeId()));
 		return dp;
 	}
+
+
 
 }

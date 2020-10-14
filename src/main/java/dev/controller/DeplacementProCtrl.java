@@ -1,5 +1,7 @@
 package dev.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.dto.DeplacementProDtoQuery;
+import dev.dto.DeplacementProDtoRep;
 import dev.exception.ChauffeurException;
 import dev.exception.CollegueException;
 import dev.exception.DeplacementProException;
@@ -34,9 +37,29 @@ public class DeplacementProCtrl {
 	
 	@GetMapping("/deplacement")
 	public ResponseEntity<?> mesDeplacement (@RequestParam int id) {
-			return ResponseEntity.ok().body(dpServ.getDeplacement(id));	
+			try {
+				return ResponseEntity.ok().body(dpServ.getDeplacement(id));
+			} catch (CollegueException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}	
+	}
+	@GetMapping("/vehicule-reserve")
+	public ResponseEntity<?> vehiculeReserve(@RequestParam int id) {
+		try {
+			return ResponseEntity.ok().body(dpServ.getReservationVehicule(id));
+		} catch (vehiculeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}	
 	}
 	
+	@GetMapping("/vehicule-archive")
+	public ResponseEntity<?> vehiculeArchive(@RequestParam int id) {
+		try {
+			return ResponseEntity.ok().body(dpServ.getArchiveVehicule(id));
+		} catch (vehiculeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}	
+	}
 	
 	@PostMapping
 	public ResponseEntity<?> add(@Valid @RequestBody DeplacementProDtoQuery dpQuery, BindingResult resValid){
@@ -49,15 +72,5 @@ public class DeplacementProCtrl {
 		else return ResponseEntity.badRequest().body(resValid.getAllErrors());
 	
 	}
-	
-	@PutMapping("/passager")
-	public ResponseEntity<?> addPassager(@RequestParam int idDeplacement,@RequestParam int idCollegue) {
-		try {
-			return ResponseEntity.ok().body(dpServ.addPassager(idDeplacement, idCollegue));
-		} catch (DeplacementProException | CollegueException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
 	
 }

@@ -28,23 +28,20 @@ public class DeplacementPro {
 	@JoinColumn(name = "reserver_par")
 	private Collegue reserverPar;
 	@ManyToOne
-	@JoinColumn(name = "id_chauffeur",nullable = true)
+	@JoinColumn(name = "id_chauffeur", nullable = true)
 	private Chauffeur chauffeur;
 	@ManyToOne
 	@JoinColumn(name = "id_vehicule")
 	private VehiculeSociete vehicule;
-	@Column(columnDefinition = "date")
-	private LocalDate date;
-	private String depart;
-	private String destination;
-	@Column(name = "heure_depart", columnDefinition = "time")
-	private LocalTime heureDepart;
-	@ManyToMany
-	@JoinTable(name = "reservation_deplacement_pro", joinColumns = @JoinColumn(name = "id_deplacement_pro"), inverseJoinColumns = @JoinColumn(name = "id_passager"))
-	private List<Collegue> passager = new ArrayList<Collegue>();
-
-	// getteurSetteur
-
+	@Column(name = "date_emprun", columnDefinition = "date")
+	private LocalDate dateEmprun;
+	@Column(name = "date_restitution", columnDefinition = "date")
+	private LocalDate dateRestitution;
+	@Column(name = "heure_emprun", columnDefinition = "time")
+	private LocalTime heureEmprun;
+	@Column(name = "heure_restitution", columnDefinition = "time")
+	private LocalTime heureRestitution;
+	
 	public int getId() {
 		return id;
 	}
@@ -77,44 +74,35 @@ public class DeplacementPro {
 		this.vehicule = vehicule;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getDateEmprun() {
+		return dateEmprun;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDateEmprun(LocalDate dateEmprun) {
+		this.dateEmprun = dateEmprun;
 	}
 
-	public String getDepart() {
-		return depart;
+	public LocalDate getDateRestitution() {
+		return dateRestitution;
 	}
 
-	public void setDepart(String depart) {
-		this.depart = depart;
+	public void setDateRestitution(LocalDate dateRestitution) {
+		this.dateRestitution = dateRestitution;
 	}
 
-	public String getDestination() {
-		return destination;
+	public LocalTime getHeureEmprun() {
+		return heureEmprun;
 	}
 
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setHeureEmprun(LocalTime heureEmprun) {
+		this.heureEmprun = heureEmprun;
 	}
 
-	public LocalTime getHeureDepart() {
-		return heureDepart;
+	public LocalTime getHeureRestitution() {
+		return heureRestitution;
 	}
 
-	public void setHeureDepart(LocalTime heureDepart) {
-		this.heureDepart = heureDepart;
+	public void setHeureRestitution(LocalTime heureRestitution) {
+		this.heureRestitution = heureRestitution;
 	}
-
-	public List<Collegue> getPassager() {
-		return passager;
-	}
-
-	public void setPassager(List<Collegue> passager) {
-		this.passager = passager;
-	}
-
 }

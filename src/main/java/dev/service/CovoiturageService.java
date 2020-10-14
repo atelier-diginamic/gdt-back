@@ -1,5 +1,6 @@
 package dev.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,25 @@ public class CovoiturageService {
 		this.covRepo = covRepo;
 		this.colServ = colServ;
 	}
+	/**
+	 * retourne les covoiturage correspondant au parametres
+	 * @param adrDepart
+	 * @param adrArr
+	 * @param dateDep
+	 * @return
+	 */
+	public Object getCovoiturages(String adrDepart, String adrArr, String dateDep) {
+		
+
+		
+		
+		List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+		for (AnnonceCovoiturage ac : covRepo.findByDepartAndArriveAndDate(adrDepart, adrArr, LocalDate.parse(dateDep))) {
+			list.add(this.getDtoRep(ac));
+		}
+		return list;
+	}
+
 
 	/**
 	 * recherche les covoiturages ou l'id d'un collegue est passager
@@ -154,6 +174,7 @@ public class CovoiturageService {
 		
 	}
 
+	
 
 
 

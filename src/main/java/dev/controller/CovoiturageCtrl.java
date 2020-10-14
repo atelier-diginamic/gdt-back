@@ -1,5 +1,7 @@
 package dev.controller;
 
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,11 @@ public class CovoiturageCtrl {
 		super();
 		this.covServ = covServ;
 	}
-	//@GetMapping(params = lieuDepart)
+	
+	@GetMapping(params = {"depart","arrive","date"})
+	public ResponseEntity<?> listCovoiturages(String depart,String arrive,String date){
+		return ResponseEntity.ok().body(covServ.getCovoiturages(depart,arrive,date));
+	}
 	
 	@GetMapping("/reservation")
 	public ResponseEntity<?> getReservations(@RequestParam int id) {

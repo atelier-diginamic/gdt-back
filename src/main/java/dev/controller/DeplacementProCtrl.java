@@ -37,7 +37,11 @@ public class DeplacementProCtrl {
 	
 	@GetMapping("/deplacement")
 	public ResponseEntity<?> mesDeplacement (@RequestParam int id) {
-			return ResponseEntity.ok().body(dpServ.getDeplacement(id));	
+			try {
+				return ResponseEntity.ok().body(dpServ.getDeplacement(id));
+			} catch (CollegueException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}	
 	}
 	@GetMapping("/vehicule-reserve")
 	public ResponseEntity<?> vehiculeReserve(@RequestParam int id) {
@@ -68,15 +72,5 @@ public class DeplacementProCtrl {
 		else return ResponseEntity.badRequest().body(resValid.getAllErrors());
 	
 	}
-	
-	@PutMapping("/passager")
-	public ResponseEntity<?> addPassager(@RequestParam int idDeplacement,@RequestParam int idCollegue) {
-		try {
-			return ResponseEntity.ok().body(dpServ.addPassager(idDeplacement, idCollegue));
-		} catch (DeplacementProException | CollegueException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
 	
 }

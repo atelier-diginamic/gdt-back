@@ -6,15 +6,19 @@ import java.time.LocalTime;
 public class VehiculeInfoDto {
 	private CollegueDtoRep ReserverPar;
 	private VehiculeSocieteDto vehicule;
-	private LocalDate date;
-	private LocalTime heureDepart;
+	private LocalDate dateEmprun;
+	private LocalTime heureEmprun;
+	private LocalDate dateRestitution;
+	private LocalTime heureRestitution;
 
-	public VehiculeInfoDto(LocalDate date, LocalTime heureDepart, VehiculeSocieteDto dtoVehicule,
-			CollegueDtoRep dtoCol) {
-		this.vehicule = dtoVehicule;
-		this.ReserverPar = dtoCol;
-		this.date = date;
-		this.heureDepart = heureDepart;
+	public VehiculeInfoDto(LocalDate dateEmprun, LocalTime heureEmprun, LocalDate dateRestitution,
+			LocalTime heureRestitution, VehiculeSocieteDto dtoRep, CollegueDtoRep dtoRep2) {
+		this.ReserverPar=dtoRep2;
+		this.vehicule=dtoRep;
+		this.dateEmprun=dateEmprun;
+		this.heureEmprun=heureEmprun;
+		this.dateRestitution=dateRestitution;
+		this.heureRestitution=heureRestitution;
 	}
 
 	public CollegueDtoRep getReserverPar() {
@@ -33,20 +37,36 @@ public class VehiculeInfoDto {
 		this.vehicule = vehicule;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getDateEmprun() {
+		return dateEmprun;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDateEmprun(LocalDate dateEmprun) {
+		this.dateEmprun = dateEmprun;
 	}
 
-	public LocalTime getHeureDepart() {
-		return heureDepart;
+	public LocalTime getHeureEmprun() {
+		return heureEmprun;
 	}
 
-	public void setHeureDepart(LocalTime heureDepart) {
-		this.heureDepart = heureDepart;
+	public void setHeureEmprun(LocalTime heureEmprun) {
+		this.heureEmprun = heureEmprun;
+	}
+
+	public LocalDate getDateRestitution() {
+		return dateRestitution;
+	}
+
+	public void setDateRestitution(LocalDate dateRestitution) {
+		this.dateRestitution = dateRestitution;
+	}
+
+	public LocalTime getHeureRestitution() {
+		return heureRestitution;
+	}
+
+	public void setHeureRestitution(LocalTime heureRestitution) {
+		this.heureRestitution = heureRestitution;
 	}
 
 }

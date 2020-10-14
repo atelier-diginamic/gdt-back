@@ -48,23 +48,25 @@ public class DeplacementProService {
 
 		return list;
 	}
-	
+
 	public List<VehiculeReserveDto> getReservationVehicule(int id) throws vehiculeException {
-		
-		VehiculeSociete v=vehiculeServ.getEntityById(id);
-		List<VehiculeReserveDto> list=new ArrayList<VehiculeReserveDto>();
+
+		VehiculeSociete v = vehiculeServ.getEntityById(id);
+		List<VehiculeReserveDto> list = new ArrayList<VehiculeReserveDto>();
 		for (DeplacementPro dp : dpRepo.findByVehiculeAndDateAfter(v, LocalDate.now().minusDays(1))) {
-			list.add(new VehiculeReserveDto(dp));
+			list.add(new VehiculeReserveDto(dp.getDate(), dp.getHeureDepart(), vehiculeServ.getDtoRep(dp.getVehicule()),
+					colServ.getDtoRep(dp.getReserverPar())));
 		}
 		return list;
 	}
-	
+
 	public List<VehiculeReserveDto> getArchiveVehicule(int id) throws vehiculeException {
-		
-		VehiculeSociete v=vehiculeServ.getEntityById(id);
-		List<VehiculeReserveDto> list=new ArrayList<VehiculeReserveDto>();
+
+		VehiculeSociete v = vehiculeServ.getEntityById(id);
+		List<VehiculeReserveDto> list = new ArrayList<VehiculeReserveDto>();
 		for (DeplacementPro dp : dpRepo.findByVehiculeAndDateBefore(v, LocalDate.now())) {
-			list.add(new VehiculeReserveDto(dp));
+			list.add(new VehiculeReserveDto(dp.getDate(), dp.getHeureDepart(), vehiculeServ.getDtoRep(dp.getVehicule()),
+					colServ.getDtoRep(dp.getReserverPar())));
 		}
 		return list;
 	}
@@ -132,7 +134,5 @@ public class DeplacementProService {
 		dp.setVehicule(vehiculeServ.getEntityById(dpQuery.getVehiculeId()));
 		return dp;
 	}
-
-
 
 }

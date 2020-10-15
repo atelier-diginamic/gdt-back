@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.dto.AnnonceCovoiturageDtoQuery;
 import dev.exception.CollegueException;
+import dev.exception.CovoitException;
 import dev.exception.CovoiturageException;
 import dev.service.CovoiturageService;
 
@@ -34,6 +35,17 @@ public class CovoiturageCtrl {
 	@GetMapping("/reservation")
 	public ResponseEntity<?> getReservations(@RequestParam int id) {
 		return ResponseEntity.ok().body(covServ.getReservations(id));
+	}
+	
+	@PutMapping("/reservation")
+	public ResponseEntity<?> addPassager(@RequestParam int idCovoit,@RequestParam int idCollegue){
+		try {
+			return ResponseEntity.ok().body(covServ.addPassager(idCovoit, idCollegue));
+		} catch (CovoitException | CollegueException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+
+		}
+		
 	}
 
 	@GetMapping("/no-reservation")

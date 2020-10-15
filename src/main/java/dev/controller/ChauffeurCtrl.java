@@ -43,8 +43,8 @@ public class ChauffeurCtrl {
 	public ResponseEntity<?> add(@Valid @RequestBody ChauffeurDtoQuery chQuery, BindingResult resVal) {
 		if (!resVal.hasErrors()) {
 			try {
-				return ResponseEntity.ok().body(chServ.addEdit(chQuery));
-			} catch (CollegueException e) {
+				return ResponseEntity.ok().body(chServ.add(chQuery));
+			} catch (CollegueException | ChauffeurException e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
 			}
 		} else {

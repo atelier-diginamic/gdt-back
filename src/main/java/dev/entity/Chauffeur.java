@@ -1,6 +1,6 @@
 package dev.entity;
 
-import javax.annotation.Generated;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +17,8 @@ public class Chauffeur {
 	private String matricule;
 	private String permis;
 	private String telephone;
+	@Column(nullable=true)
+	private String urlImage;
 	@OneToOne
 	@JoinColumn(name = "id_collegue")
 	private Collegue info;
@@ -53,6 +55,14 @@ public class Chauffeur {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Collegue getInfo() {

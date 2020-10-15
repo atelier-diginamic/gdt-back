@@ -33,21 +33,23 @@ public class ChauffeurCtrl {
 	public ChauffeurCtrl(ChauffeurService chServ) {
 		this.chServ = chServ;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok().body(chServ.getAll());
 	}
-	
-	
-	
+
 	@PostMapping
-	public ResponseEntity<?>add(@Valid @RequestBody ChauffeurDtoQuery chQuery, BindingResult resVal){
-		if(!resVal.hasErrors()) {
-			return ResponseEntity.ok().body(chServ.addEdit(chQuery));
-		}else {
-			return ResponseEntity.badRequest().body("");
+	public ResponseEntity<?> add(@Valid @RequestBody ChauffeurDtoQuery chQuery, BindingResult resVal) {
+		if (!resVal.hasErrors()) {
+			try {
+				return ResponseEntity.ok().body(chServ.addEdit(chQuery));
+			} catch (CollegueException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+		} else {
+			return ResponseEntity.badRequest().body(resVal.getAllErrors());
 		}
 	}
-	
+
 }

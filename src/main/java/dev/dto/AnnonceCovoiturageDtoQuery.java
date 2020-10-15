@@ -18,7 +18,7 @@ public class AnnonceCovoiturageDtoQuery {
 	private LocalTime heureDepart;
 	private String marqueVoiture;
 	private String modeleVoiture;
-	private String imageUrl;
+	private String imageUrl=null;
 	private int place;
 	private StatusAnnonce status;
 	private List<Integer> passagersId = new ArrayList<Integer>();

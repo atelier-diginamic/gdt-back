@@ -348,93 +348,52 @@ public class StartupListener {
 //		(chauff : 3 4 5 6)
 		DeplacementPro dp1 = new DeplacementPro();
 		dp1.setChauffeur(ch1);
-
-		dp1.setDate(LocalDate.of(2020, 12, 1));
-		dp1.setDepart("Rue Vandamme, 75014 Paris");
-		dp1.setDestination("Place de la Comédie, 34000 Montpellier");
-		dp1.setHeureDepart(LocalTime.of(8, 0));
-		dp1.getPassager().add(col1);
-		dp1.getPassager().add(col2);
-		dp1.getPassager().add(col7);
+		dp1.setDateEmprun(LocalDate.of(2020, 12, 1));
+		dp1.setDateRestitution(LocalDate.of(2020, 12, 24));
+		dp1.setHeureEmprun(LocalTime.of(8, 0));
+		dp1.setHeureRestitution(LocalTime.of(16, 0));
 		dp1.setReserverPar(col1);
-
 		dp1.setVehicule(vs1);
 		dpRepo.save(dp1);
-
-		DeplacementPro dp2 = new DeplacementPro();
-
-		dp2.setChauffeur(ch1);
-		dp2.setDate(LocalDate.of(2020, 12, 12));
-		dp2.setDepart("Place de la Comédie, 34000 Montpellier");
-		dp2.setDestination("Rue Vandamme, 75014 Paris");
-		dp2.setHeureDepart(LocalTime.of(8, 0));
-		dp2.getPassager().add(col2);
-		dp2.getPassager().add(col7);
-		dp2.setReserverPar(col7);
-		dp2.setVehicule(vs5);
-
-		dpRepo.save(dp2);
-
+		
 		DeplacementPro dp3 = new DeplacementPro();
-		dp3.setChauffeur(ch2);
-
-		dp3.setDate(LocalDate.of(2020, 11, 25));
-		dp3.setDepart("Feuille d'Or, 49290 Chalonnes-sur-Loire");
-		dp3.setDestination("Rue des Herbes, 33000 Bordeaux");
-		dp3.setHeureDepart(LocalTime.of(8, 0));
-		dp3.getPassager().add(col8);
-		dp3.getPassager().add(col7);
-		dp3.getPassager().add(col9);
-		dp3.setReserverPar(col9);
-		dp3.setVehicule(vs1);
-		dpRepo.save(dp1);
-
+		dp3.setDateEmprun(LocalDate.of(2020, 12, 1));
+		dp3.setDateRestitution(LocalDate.of(2020, 12, 24));
+		dp3.setHeureEmprun(LocalTime.of(8, 0));
+		dp3.setHeureRestitution(LocalTime.of(16, 0));
+		dp3.setReserverPar(col2);
+		dp3.setVehicule(vs2);
+		dpRepo.save(dp3);
+		
 		DeplacementPro dp4 = new DeplacementPro();
-		dp4.setChauffeur(ch3);
-		dp4.setDate(LocalDate.of(2020, 12, 11));
-		dp4.setDepart("Rue des Herbes, 33000 Bordeaux");
-		dp4.setDestination("Feuille d'Or, 49290 Chalonnes-sur-Loire");
-		dp4.setHeureDepart(LocalTime.of(8, 0));
-		dp4.getPassager().add(col9);
-		dp4.getPassager().add(col8);
-
+		dp4.setChauffeur(ch2);
+		dp4.setDateEmprun(LocalDate.of(2020, 12, 1));
+		dp4.setDateRestitution(LocalDate.of(2020, 12, 24));
+		dp4.setHeureEmprun(LocalTime.of(8, 0));
+		dp4.setHeureRestitution(LocalTime.of(16, 0));
 		dp4.setReserverPar(col9);
-		dp4.setVehicule(vs1);
+		dp4.setVehicule(vs9);
 		dpRepo.save(dp4);
 
+		
 		DeplacementPro dp5 = new DeplacementPro();
-
 		dp5.setChauffeur(ch1);
-		dp5.setDate(LocalDate.of(2019, 12, 1));
-		dp5.setDepart("Rue Louis Lumière, 31300 Toulouse");
-		dp5.setDestination("Place des Carmes, 26200 Montélimar");
-		dp5.setHeureDepart(LocalTime.of(8, 0));
-		dp5.getPassager().add(col1);
+		dp5.setDateEmprun(LocalDate.of(2019, 12, 1));
+		dp5.setDateRestitution(LocalDate.of(2019, 12, 24));
+		dp5.setHeureEmprun(LocalTime.of(8, 0));
+		dp5.setHeureRestitution(LocalTime.of(16, 0));
 		dp5.setReserverPar(col1);
 		dp5.setVehicule(vs1);
 		dpRepo.save(dp5);
-
+		
 		DeplacementPro dp6 = new DeplacementPro();
-		dp6.setChauffeur(ch1);
-		dp6.setDate(LocalDate.of(2019, 12, 12));
-		dp6.setDepart("Place des Carmes, 26200 Montélimar");
-		dp6.setDestination("Rue Louis Lumière, 31300 Toulouse");
-		dp6.setHeureDepart(LocalTime.of(8, 0));
-		dp6.getPassager().add(col9);
-		dp6.setReserverPar(col9);
-		dp6.setVehicule(vs9);
+		dp6.setDateEmprun(LocalDate.of(2019, 12, 1));
+		dp6.setDateRestitution(LocalDate.of(2019, 12, 24));
+		dp6.setHeureEmprun(LocalTime.of(8, 0));
+		dp6.setHeureRestitution(LocalTime.of(16, 0));
+		dp6.setReserverPar(col2);
+		dp6.setVehicule(vs2);
 		dpRepo.save(dp6);
-
-		DeplacementPro dp7 = new DeplacementPro();
-		dp7.setChauffeur(ch3);
-		dp7.setDate(LocalDate.of(2020, 12, 4));
-		dp7.setDepart("Place des Carmes, 26200 Montélimar");
-		dp7.setDestination("Rue des Herbes, 33000 Bordeaux");
-		dp7.setHeureDepart(LocalTime.of(8, 0));
-		dp7.getPassager().add(col8);
-		dp7.setReserverPar(col8);
-		dp7.setVehicule(vs1);
-		dpRepo.save(dp7);
-
+		
 	}
 }

@@ -11,6 +11,7 @@ import dev.dto.AnnonceCovoiturageDtoRep;
 import dev.entity.AnnonceCovoiturage;
 import dev.entity.Collegue;
 import dev.exception.CollegueException;
+import dev.exception.CovoitException;
 import dev.exception.CovoiturageException;
 import dev.repository.CovoiturageRepository;
 
@@ -53,16 +54,16 @@ public class CovoiturageService {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * listes les annonces par createur
 	 * 
 	 * @param id createur des annonces a rechercher
 	 * @return une liste de AnnonceCovoiturageDtoRep
-	 * @throws CollegueException 
+	 * @throws CollegueException
 	 */
 	public Object annonces(Integer id) throws CollegueException {
-		List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+		List<AnnonceCovoiturageDtoRep> list = new ArrayList<AnnonceCovoiturageDtoRep>();
 		for (AnnonceCovoiturage ac : covRepo.findByCollegue(colServ.getEntityById(id))) {
 			list.add(this.getDtoRep(ac));
 		}
@@ -79,32 +80,59 @@ public class CovoiturageService {
 		AnnonceCovoiturage ac = getEntity(acDtoQuery);
 		return getDtoRep(covRepo.save(ac));
 	}
+
 	/**
 	 * editer un covoiturage
+	 * 
 	 * @param acDtoQuery dto de requete du covoiturage a modifier
 	 * @return un objet dto d'annonce de covoiturage
 	 */
 	public AnnonceCovoiturageDtoRep edit(AnnonceCovoiturageDtoQuery acDtoQuery) {
-		AnnonceCovoiturage ac=this.getEntity(acDtoQuery);
+		AnnonceCovoiturage ac = this.getEntity(acDtoQuery);
 		return this.getDtoRep(covRepo.save(ac));
 	}
 
 	/**
 	 * supprime un covoiturage
+	 * 
 	 * @param id id du covoiturage a supprimer
-	 * @return 
-	 * @throws CovoiturageException 
+	 * @return
+	 * @throws CovoiturageException
 	 */
 	public List<AnnonceCovoiturageDtoRep> delete(int id) throws CovoiturageException {
-		Optional<AnnonceCovoiturage> ac=covRepo.findById(id);
-		if(ac.isPresent()) {
+		Optional<AnnonceCovoiturage> ac = covRepo.findById(id);
+		if (ac.isPresent()) {
 			covRepo.delete(ac.get());
-			List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+			List<AnnonceCovoiturageDtoRep> list = new ArrayList<AnnonceCovoiturageDtoRep>();
 			for (AnnonceCovoiturage ac2 : covRepo.findAll()) {
 				list.add(this.getDtoRep(ac2));
 			}
 			return list;
-		}else throw new CovoiturageException("id covoiturage non trouvé");
+		} else
+			throw new CovoiturageException("id covoiturage non trouvé");
+	}
+
+	public Object addPassager(int idCovoit, int idCollegue) throws CovoitException, CollegueException, CovoitException {
+		AnnonceCovoiturage ac = this.getEntityById(idCovoit);
+		Collegue c = colServ.getEntityById(idCollegue);
+		if (ac.getPassager().size() < ac.getPlace()) {
+			if (!ac.getPassager().contains(c)) {
+				ac.getPassager().add(c);
+				return this.getDtoRep(covRepo.save(ac));
+			} else {
+				throw new CovoitException("ajout impossible ! est deja passager");
+			}
+		} else {
+			throw new CovoitException("ajout impossible. plus de place !");
+		}
+	}
+
+	protected AnnonceCovoiturage getEntityById(int id) throws CovoitException {
+		Optional<AnnonceCovoiturage> optAc = covRepo.findById(id);
+		if (optAc.isPresent())
+			return optAc.get();
+		else
+			throw new CovoitException("id de covoiturage non trouvée");
 	}
 
 //	transformation  Objet <--> Dto
@@ -151,10 +179,7 @@ public class CovoiturageService {
 			e.printStackTrace();
 		}
 		return ac;
-		
+
 	}
-
-
-
 
 }

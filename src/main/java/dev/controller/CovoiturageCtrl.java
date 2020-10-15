@@ -45,7 +45,15 @@ public class CovoiturageCtrl {
 			return ResponseEntity.badRequest().body(e.getMessage());
 
 		}
-		
+	}
+	@PutMapping("/annulation")
+	public ResponseEntity<?> annulerPassager(@RequestParam int idCovoit,@RequestParam int idCollegue){
+		try {
+			return ResponseEntity.ok().body(covServ.remPassager(idCovoit, idCollegue));
+		} catch (CovoitException | CollegueException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+
+		}
 	}
 
 	@GetMapping("/no-reservation")

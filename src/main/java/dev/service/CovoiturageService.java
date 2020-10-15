@@ -112,7 +112,19 @@ public class CovoiturageService {
 			throw new CovoiturageException("id covoiturage non trouvé");
 	}
 
-	public Object addPassager(int idCovoit, int idCollegue) throws CovoitException, CollegueException, CovoitException {
+	/**
+	 * ajoute un passager a un covoiturage
+	 * 
+	 * @param idCovoit
+	 * @param idCollegue
+	 * @return
+	 * @return
+	 * @throws CovoitException
+	 * @throws CollegueException
+	 * @throws CovoitException
+	 */
+	public AnnonceCovoiturageDtoRep addPassager(int idCovoit, int idCollegue)
+			throws CovoitException, CollegueException, CovoitException {
 		AnnonceCovoiturage ac = this.getEntityById(idCovoit);
 		Collegue c = colServ.getEntityById(idCollegue);
 		if (ac.getPassager().size() < ac.getPlace()) {
@@ -124,6 +136,28 @@ public class CovoiturageService {
 			}
 		} else {
 			throw new CovoitException("ajout impossible. plus de place !");
+		}
+	}
+
+	/**
+	 * retire un pasager d'un covoiturage
+	 * 
+	 * @param idCovoit
+	 * @param idCollegue
+	 * @return
+	 * @throws CovoitException
+	 * @throws CollegueException
+	 */
+	public AnnonceCovoiturageDtoRep remPassager(int idCovoit, int idCollegue)
+			throws CovoitException, CollegueException {
+		AnnonceCovoiturage ac = this.getEntityById(idCovoit);
+		Collegue c = colServ.getEntityById(idCollegue);
+
+		if (ac.getPassager().contains(c)) {
+			ac.getPassager().remove(c);
+			return this.getDtoRep(covRepo.save(ac));
+		} else {
+			throw new CovoitException("erreur : n'est pas passager");
 		}
 	}
 

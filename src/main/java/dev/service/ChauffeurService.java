@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
+import dev.dto.ChauffeurDtoQuery;
 import dev.dto.ChauffeurDtoRep;
 import dev.entity.Chauffeur;
 import dev.exception.ChauffeurException;
@@ -29,6 +32,11 @@ public class ChauffeurService {
 		else throw new ChauffeurException("id non trouvée");
 	}
 	
+	public ChauffeurDtoRep addEdit(@Valid ChauffeurDtoQuery chQuery) {
+		
+		return null;
+	}
+	
 	// transformation dto<-->entite
 		protected ChauffeurDtoRep getDtoRep(Chauffeur c) {
 			ChauffeurDtoRep cDto=new ChauffeurDtoRep();
@@ -48,4 +56,6 @@ public class ChauffeurService {
 			}
 			return list;
 		}
+
+		
 }

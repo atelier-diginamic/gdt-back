@@ -34,6 +34,20 @@ public class ChauffeurCtrl {
 		this.chServ = chServ;
 	}
 	
+	@GetMapping
+	public ResponseEntity<?> getAll(){
+		return ResponseEntity.ok().body(chServ.getAll());
+	}
 	
+	
+	
+	@PostMapping
+	public ResponseEntity<?>add(@Valid @RequestBody ChauffeurDtoQuery chQuery, BindingResult resVal){
+		if(!resVal.hasErrors()) {
+			return ResponseEntity.ok().body(chServ.addEdit(chQuery));
+		}else {
+			return ResponseEntity.badRequest().body("");
+		}
+	}
 	
 }

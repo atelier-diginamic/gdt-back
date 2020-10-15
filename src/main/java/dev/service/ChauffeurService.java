@@ -1,5 +1,7 @@
 package dev.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +22,15 @@ public class ChauffeurService {
 		this.chaufRepo = chaufRepo;
 		this.colServ=colServ;
 	}
+	
+	public Object getAll() {
+		List<ChauffeurDtoRep> list=new ArrayList<ChauffeurDtoRep>();
+		for (Chauffeur ch : chaufRepo.findAll()) {
+			list.add(this.getDtoRep(ch));
+		}
+		return list;
+	}
+	
 	
 	protected Chauffeur getEntityById(Integer id) throws ChauffeurException {
 		Optional<Chauffeur> chOpt=chaufRepo.findById(id);

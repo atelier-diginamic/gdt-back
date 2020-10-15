@@ -34,10 +34,6 @@ public class CovoiturageService {
 	 * @return
 	 */
 	public Object getCovoiturages(String adrDepart, String adrArr, String dateDep) {
-		
-
-		
-		
 		List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
 		for (AnnonceCovoiturage ac : covRepo.findByDepartAndArriveAndDate(adrDepart, adrArr, LocalDate.parse(dateDep))) {
 			list.add(this.getDtoRep(ac));
@@ -109,6 +105,7 @@ public class CovoiturageService {
 		return this.getDtoRep(covRepo.save(ac));
 	}
 
+	
 	/**
 	 * supprime un covoiturage
 	 * @param id id du covoiturage a supprimer
@@ -127,6 +124,7 @@ public class CovoiturageService {
 		}else throw new CovoiturageException("id covoiturage non trouvé");
 	}
 
+	
 //	transformation  Objet <--> Dto
 	protected AnnonceCovoiturageDtoRep getDtoRep(AnnonceCovoiturage ac) {
 		AnnonceCovoiturageDtoRep acRep = new AnnonceCovoiturageDtoRep();
@@ -149,10 +147,8 @@ public class CovoiturageService {
 
 	protected AnnonceCovoiturage getEntity(AnnonceCovoiturageDtoQuery acDtoQuery) {
 		AnnonceCovoiturage ac = new AnnonceCovoiturage();
-
 		if (acDtoQuery.getId() != null)
 			ac.setId(acDtoQuery.getId());
-
 		ac.setDate(acDtoQuery.getDate());
 		ac.setDepart(acDtoQuery.getDepart());
 		ac.setArrive(acDtoQuery.getArrive());
@@ -170,12 +166,6 @@ public class CovoiturageService {
 		} catch (CollegueException e) {
 			e.printStackTrace();
 		}
-		return ac;
-		
+		return ac;	
 	}
-
-	
-
-
-
 }

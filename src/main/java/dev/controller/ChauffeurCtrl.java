@@ -34,6 +34,10 @@ public class ChauffeurCtrl {
 		this.chServ = chServ;
 	}
 	
-	
+	@GetMapping
+	public ResponseEntity<?> getAll() {
+		return ResponseEntity.ok().body(chServ.getAll());
+		
+	}
 	
 }

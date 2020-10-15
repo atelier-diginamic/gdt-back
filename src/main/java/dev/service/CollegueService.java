@@ -26,6 +26,19 @@ public class CollegueService {
 
 	}
 
+	public CollegueDtoRep edit(CollegueDtoQuery colDtoQ) throws CollegueException {
+		if(colDtoQ.getId()!=null) {
+			Collegue col =colRepo.save(this.getEntity(colDtoQ));
+			return this.getDtoRep(col);
+		}else {
+			throw new CollegueException("l'id ne peux etre null");
+		}
+		
+		
+		
+	}
+	
+	
 	protected Collegue getEntityById(int id) throws CollegueException {
 		Optional<Collegue> optCol= colRepo.findById(id);
 		if(optCol.isPresent()) return optCol.get();
@@ -55,6 +68,8 @@ public class CollegueService {
 			c.setMotDePasse(passwordEncoder.encode(cQuery.getMotDePasse()));
 		return c;
 	}
+
+	
 
 
 

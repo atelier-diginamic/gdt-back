@@ -5,6 +5,7 @@ public class ChauffeurDtoRep {
 	private String matricule;
 	private String permis;
 	private String telephone;
+	private String urlImage;
 	private CollegueDtoRep info;
 
 	public int getId() {
@@ -37,6 +38,14 @@ public class ChauffeurDtoRep {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public CollegueDtoRep getInfo() {

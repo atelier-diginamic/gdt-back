@@ -1,10 +1,11 @@
 package dev.dto;
 
 public class ChauffeurDtoQuery {
-	private Integer id;
+	private Integer id=null;
 	private String matricule;
 	private String permis;
 	private String telephone;
+	private String urlImage=null;
 	private Integer collegueId;
 
 	public Integer getId() {
@@ -37,6 +38,14 @@ public class ChauffeurDtoQuery {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Integer getCollegueId() {

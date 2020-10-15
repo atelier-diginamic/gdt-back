@@ -6,13 +6,13 @@ import java.time.LocalTime;
 public class DeplacementProDtoQuery {
 
 	private Integer id = null;
-	private Integer reserverParId;
-	private Integer chauffeurId;
+	private Integer collaborateurId;
+	private Integer chauffeurId = null;
 	private Integer vehiculeId;
-	private LocalDate date;
-	private String depart;
-	private String destination;
-	private LocalTime heureDepart;
+	private LocalDate dateEmprun;
+	private LocalDate dateRestitution;
+	private LocalTime heureEmprun;
+	private LocalTime heureRestiturion;
 
 	public Integer getId() {
 		return id;
@@ -22,12 +22,12 @@ public class DeplacementProDtoQuery {
 		this.id = id;
 	}
 
-	public Integer getReserverParId() {
-		return reserverParId;
+	public Integer getCollaborateurId() {
+		return collaborateurId;
 	}
 
-	public void setReserverParId(Integer reserverParId) {
-		this.reserverParId = reserverParId;
+	public void setCollaborateurId(Integer collaborateurId) {
+		this.collaborateurId = collaborateurId;
 	}
 
 	public Integer getChauffeurId() {
@@ -46,36 +46,36 @@ public class DeplacementProDtoQuery {
 		this.vehiculeId = vehiculeId;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getDateEmprun() {
+		return dateEmprun;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDateEmprun(LocalDate dateEmprun) {
+		this.dateEmprun = dateEmprun;
 	}
 
-	public String getDepart() {
-		return depart;
+	public LocalDate getDateRestitution() {
+		return dateRestitution;
 	}
 
-	public void setDepart(String depart) {
-		this.depart = depart;
+	public void setDateRestitution(LocalDate dateRestitution) {
+		this.dateRestitution = dateRestitution;
 	}
 
-	public String getDestination() {
-		return destination;
+	public LocalTime getHeureEmprun() {
+		return heureEmprun;
 	}
 
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setHeureEmprun(LocalTime heureEmprun) {
+		this.heureEmprun = heureEmprun;
 	}
 
-	public LocalTime getHeureDepart() {
-		return heureDepart;
+	public LocalTime getHeureRestiturion() {
+		return heureRestiturion;
 	}
 
-	public void setHeureDepart(LocalTime heureDepart) {
-		this.heureDepart = heureDepart;
+	public void setHeureRestiturion(LocalTime heureRestiturion) {
+		this.heureRestiturion = heureRestiturion;
 	}
 
 }

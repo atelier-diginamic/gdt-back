@@ -348,6 +348,7 @@ public class StartupListener {
 //		(chauff : 3 4 5 6)
 		DeplacementPro dp1 = new DeplacementPro();
 		dp1.setChauffeur(ch1);
+
 		dp1.setDate(LocalDate.of(2020, 12, 1));
 		dp1.setDepart("Rue Vandamme, 75014 Paris");
 		dp1.setDestination("Place de la Comédie, 34000 Montpellier");
@@ -356,10 +357,12 @@ public class StartupListener {
 		dp1.getPassager().add(col2);
 		dp1.getPassager().add(col7);
 		dp1.setReserverPar(col1);
+
 		dp1.setVehicule(vs1);
 		dpRepo.save(dp1);
 
 		DeplacementPro dp2 = new DeplacementPro();
+
 		dp2.setChauffeur(ch1);
 		dp2.setDate(LocalDate.of(2020, 12, 12));
 		dp2.setDepart("Place de la Comédie, 34000 Montpellier");
@@ -369,10 +372,12 @@ public class StartupListener {
 		dp2.getPassager().add(col7);
 		dp2.setReserverPar(col7);
 		dp2.setVehicule(vs5);
+
 		dpRepo.save(dp2);
 
 		DeplacementPro dp3 = new DeplacementPro();
 		dp3.setChauffeur(ch2);
+
 		dp3.setDate(LocalDate.of(2020, 11, 25));
 		dp3.setDepart("Feuille d'Or, 49290 Chalonnes-sur-Loire");
 		dp3.setDestination("Rue des Herbes, 33000 Bordeaux");
@@ -392,11 +397,13 @@ public class StartupListener {
 		dp4.setHeureDepart(LocalTime.of(8, 0));
 		dp4.getPassager().add(col9);
 		dp4.getPassager().add(col8);
+
 		dp4.setReserverPar(col9);
-		dp4.setVehicule(vs7);
+		dp4.setVehicule(vs1);
 		dpRepo.save(dp4);
 
 		DeplacementPro dp5 = new DeplacementPro();
+
 		dp5.setChauffeur(ch1);
 		dp5.setDate(LocalDate.of(2019, 12, 1));
 		dp5.setDepart("Rue Louis Lumière, 31300 Toulouse");
@@ -428,5 +435,6 @@ public class StartupListener {
 		dp7.setReserverPar(col8);
 		dp7.setVehicule(vs1);
 		dpRepo.save(dp7);
+
 	}
 }

@@ -1,31 +1,63 @@
 package dev.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import dev.dto.CollegueDtoRep;
 import dev.dto.CollegueDtoQuery;
+import dev.dto.CollegueDtoRep;
 import dev.entity.Collegue;
 import dev.entity.RoleCollegue;
 import dev.exception.CollegueException;
 import dev.repository.CollegueRepository;
+import dev.repository.RoleCollegueRepository;
 import enumeration.Role;
 
 @Service
 public class CollegueService {
 
 	private CollegueRepository colRepo;
+	private RoleCollegueRepository rcRepo;
 	private PasswordEncoder passwordEncoder;
 
-	public CollegueService(CollegueRepository colRepo, PasswordEncoder passwordEncoder) {
-		super();
+	public CollegueService(CollegueRepository colRepo, PasswordEncoder passwordEncoder, RoleCollegueRepository rcRepo) {
 		this.colRepo = colRepo;
+		this.rcRepo=rcRepo;
 		this.passwordEncoder = passwordEncoder;
 
 	}
 
+	
+	public List<CollegueDtoRep> getAll() {
+		List<CollegueDtoRep> list=new ArrayList<CollegueDtoRep>();
+		for (Collegue c : colRepo.findAll()) {
+			list.add(this.getDtoRep(c));
+		}
+		
+		return list;
+	}
+	
+	public List<CollegueDtoRep> isNot(Role role) {
+		List<CollegueDtoRep> list=new ArrayList<CollegueDtoRep>();
+		for (Collegue c : rcRepo.getByNotRole(role)) {
+			list.add(this.getDtoRep(c));
+		}
+		return list;
+	}
+	
+	public List<CollegueDtoRep> is(Role role) {
+		List<CollegueDtoRep> list=new ArrayList<CollegueDtoRep>();
+		for (Collegue c : rcRepo.getByRole(role)) {
+			list.add(this.getDtoRep(c));
+		}
+		return list;
+	}
+	
+	
+	
 	public CollegueDtoRep edit(CollegueDtoQuery colDtoQ) throws CollegueException {
 		if(colDtoQ.getId()!=null) {
 			Collegue col =colRepo.save(this.getEntity(colDtoQ));
@@ -68,6 +100,8 @@ public class CollegueService {
 			c.setMotDePasse(passwordEncoder.encode(cQuery.getMotDePasse()));
 		return c;
 	}
+
+
 
 	
 

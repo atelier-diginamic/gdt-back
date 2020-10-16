@@ -2,8 +2,6 @@ package dev.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,6 +23,8 @@ public class DeplacementPro {
 	@OneToOne
 	@JoinColumn(name = "reserver_par")
 	private Collegue reserverPar;
+	@Column(name="avec_chauffeur")
+	private boolean avecChauffeur;
 	@ManyToOne
 	@JoinColumn(name = "id_chauffeur", nullable = true)
 	private Chauffeur chauffeur;
@@ -64,6 +62,14 @@ public class DeplacementPro {
 
 	public void setChauffeur(Chauffeur chauffeur) {
 		this.chauffeur = chauffeur;
+	}
+
+	public boolean isAvecChauffeur() {
+		return avecChauffeur;
+	}
+
+	public void setAvecChauffeur(boolean avecChauffeur) {
+		this.avecChauffeur = avecChauffeur;
 	}
 
 	public VehiculeSociete getVehicule() {

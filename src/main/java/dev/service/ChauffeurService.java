@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import dev.dto.ChauffeurDtoQuery;
 import dev.dto.ChauffeurDtoRep;
 import dev.entity.Chauffeur;
-import dev.entity.Collegue;
 import dev.entity.RoleCollegue;
 import dev.exception.ChauffeurException;
 import dev.exception.CollegueException;
@@ -29,7 +28,7 @@ public class ChauffeurService {
 		super();
 		this.chaufRepo = chaufRepo;
 		this.colServ = colServ;
-		this.rcRepo=rcRepo;
+		this.rcRepo = rcRepo;
 	}
 
 	public List<ChauffeurDtoRep> getAll() {
@@ -40,14 +39,37 @@ public class ChauffeurService {
 		return list;
 	}
 
+	public List<ChauffeurDtoRep> getBy(String type, String value) {
+		List<ChauffeurDtoRep> list = new ArrayList<ChauffeurDtoRep>();
+		switch (type) {
+		case "matricule":
+			for (Chauffeur ch : chaufRepo.findByMatricule(value)) {
+				list.add(this.getDtoRep(ch));
+			}
+			break;
+		case "nom":
+			for (Chauffeur ch : chaufRepo.findByNom(value)) {
+				list.add(this.getDtoRep(ch));
+			}
+			break;
+		case "prenom":
+			for (Chauffeur ch : chaufRepo.findByPrenom(value)) {
+				list.add(this.getDtoRep(ch));
+			}
+			break;
+		}
+		return list;
+	}
+
 	@Transactional
 	public ChauffeurDtoRep add(ChauffeurDtoQuery chQuery) throws CollegueException, ChauffeurException {
 		Chauffeur ch = this.getEntity(chQuery);
-		List<enumeration.Role> listRole=ch.getInfo().getRoles().stream().map(roleCollegue -> roleCollegue.getRole()).collect(Collectors.toList());
+		List<enumeration.Role> listRole = ch.getInfo().getRoles().stream().map(roleCollegue -> roleCollegue.getRole())
+				.collect(Collectors.toList());
 		if (listRole.contains(enumeration.Role.ROLE_CHAUFFEUR)) {
 			throw new ChauffeurException("ce collegue est deja chauffeur");
 		} else {
-			rcRepo.save(new RoleCollegue(ch.getInfo(),enumeration.Role.ROLE_CHAUFFEUR));
+			rcRepo.save(new RoleCollegue(ch.getInfo(), enumeration.Role.ROLE_CHAUFFEUR));
 		}
 		chaufRepo.save(ch);
 		return this.getDtoRep(ch);

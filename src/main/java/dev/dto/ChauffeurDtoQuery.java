@@ -2,7 +2,7 @@ package dev.dto;
 
 public class ChauffeurDtoQuery {
 	private Integer id=null;
-	private String matricule;
+	private String matricule=null;
 	private String permis;
 	private String telephone;
 	private String urlImage=null;

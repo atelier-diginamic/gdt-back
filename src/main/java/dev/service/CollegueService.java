@@ -3,6 +3,7 @@ package dev.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,8 @@ public class CollegueService {
 	
 	public List<CollegueDtoRep> isNot(Role role) {
 		List<CollegueDtoRep> list=new ArrayList<CollegueDtoRep>();
-		for (Collegue c : rcRepo.getByNotRole(role)) {
+		for (Collegue c : colRepo.findAll()) {
+			if(!c.getRoles().stream().map(roleCollegue -> roleCollegue.getRole()).collect(Collectors.toList()).contains(role))
 			list.add(this.getDtoRep(c));
 		}
 		return list;

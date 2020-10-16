@@ -32,13 +32,28 @@ public class CovoiturageCtrl {
 		this.covServ = covServ;
 	}
 
+	@GetMapping
+	public ResponseEntity<?> getAll() {
+		return ResponseEntity.ok().body(covServ.getAll());
+	}
+
+	@GetMapping(params = { "type", "value" })
+	public ResponseEntity<?> getBy(@RequestParam String type, @RequestParam String value) {
+		return ResponseEntity.ok().body(covServ.getBy(type, value));
+	}
+
+	@GetMapping(params = { "depart", "arrive", "date" })
+	public ResponseEntity<?> search(@RequestParam String depart, @RequestParam String arrive, @RequestParam String date) {
+		return ResponseEntity.ok().body(covServ.search(depart, arrive,date));
+	}
+	
 	@GetMapping("/reservation")
 	public ResponseEntity<?> getReservations(@RequestParam int id) {
 		return ResponseEntity.ok().body(covServ.getReservations(id));
 	}
-	
+
 	@PutMapping("/reservation")
-	public ResponseEntity<?> addPassager(@RequestParam int idCovoit,@RequestParam int idCollegue){
+	public ResponseEntity<?> addPassager(@RequestParam int idCovoit, @RequestParam int idCollegue) {
 		try {
 			return ResponseEntity.ok().body(covServ.addPassager(idCovoit, idCollegue));
 		} catch (CovoitException | CollegueException e) {
@@ -46,8 +61,9 @@ public class CovoiturageCtrl {
 
 		}
 	}
+
 	@PutMapping("/annulation")
-	public ResponseEntity<?> annulerPassager(@RequestParam int idCovoit,@RequestParam int idCollegue){
+	public ResponseEntity<?> annulerPassager(@RequestParam int idCovoit, @RequestParam int idCollegue) {
 		try {
 			return ResponseEntity.ok().body(covServ.remPassager(idCovoit, idCollegue));
 		} catch (CovoitException | CollegueException e) {

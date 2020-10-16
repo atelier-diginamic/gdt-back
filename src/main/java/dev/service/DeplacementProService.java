@@ -3,7 +3,6 @@ package dev.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import dev.entity.DeplacementPro;
 import dev.entity.VehiculeSociete;
 import dev.exception.ChauffeurException;
 import dev.exception.CollegueException;
-import dev.exception.DeplacementProException;
 import dev.exception.vehiculeException;
 import dev.repository.DeplacementProRepository;
 
@@ -114,6 +112,7 @@ public class DeplacementProService {
 
 		if (dp.getChauffeur() != null)
 			dpRep.setChauffeur(chauffeurServ.getDtoRep(dp.getChauffeur()));
+		dpRep.setAvecChauffeur(dp.isAvecChauffeur());
 		dpRep.setDateEmprun(dp.getDateEmprun());
 		dpRep.setDateRestitution(dp.getDateRestitution());
 		dpRep.setHeureEmprun(dp.getHeureEmprun());
@@ -128,6 +127,7 @@ public class DeplacementProService {
 		if (dpQuery.getId() != null)
 			dp.setId(dpQuery.getId());
 		dp.setChauffeur(chauffeurServ.getEntityById(dpQuery.getChauffeurId()));
+		dp.setAvecChauffeur(dpQuery.isAvecChauffeur());
 		dp.setDateEmprun(dpQuery.getDateEmprun());
 		dp.setDateRestitution(dpQuery.getDateRestitution());
 		dp.setHeureEmprun(dpQuery.getHeureEmprun());

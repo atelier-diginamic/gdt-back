@@ -8,6 +8,7 @@ public class DeplacementProDtoQuery {
 	private Integer id = null;
 	private Integer collaborateurId;
 	private Integer chauffeurId = null;
+	private boolean avecChauffeur=false;
 	private Integer vehiculeId;
 	private LocalDate dateEmprun;
 	private LocalDate dateRestitution;
@@ -36,6 +37,14 @@ public class DeplacementProDtoQuery {
 
 	public void setChauffeurId(Integer chauffeurId) {
 		this.chauffeurId = chauffeurId;
+	}
+
+	public boolean isAvecChauffeur() {
+		return avecChauffeur;
+	}
+
+	public void setAvecChauffeur(boolean avecChauffeur) {
+		this.avecChauffeur = avecChauffeur;
 	}
 
 	public Integer getVehiculeId() {

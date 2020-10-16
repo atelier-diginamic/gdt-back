@@ -2,28 +2,13 @@ package dev.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-
-import dev.entity.Chauffeur;
-import dev.entity.Collegue;
-import dev.entity.DeplacementPro;
-import dev.entity.VehiculeSociete;
 
 public class DeplacementProDtoRep {
 
 	private int id;
 	private CollegueDtoRep reserverPar;
 	private ChauffeurDtoRep chauffeur;
+	private boolean avecChauffeur;
 	private VehiculeSocieteDto vehicule;
 	private LocalDate dateEmprun;
 	private LocalDate dateRestitution;
@@ -52,6 +37,14 @@ public class DeplacementProDtoRep {
 
 	public void setChauffeur(ChauffeurDtoRep chauffeur) {
 		this.chauffeur = chauffeur;
+	}
+
+	public boolean isAvecChauffeur() {
+		return avecChauffeur;
+	}
+
+	public void setAvecChauffeur(boolean avecChauffeur) {
+		this.avecChauffeur = avecChauffeur;
 	}
 
 	public VehiculeSocieteDto getVehicule() {

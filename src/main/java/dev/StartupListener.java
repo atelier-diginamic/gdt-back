@@ -173,10 +173,10 @@ public class StartupListener {
 		// ANNONCE_COVOITURAGE
 
 		AnnonceCovoiturage ac1 = new AnnonceCovoiturage();
-		ac1.setArrive("adrArrive1");
+		ac1.setArrive("Avenue du Père Soulas, 34090 Montpellier");
 		ac1.setCollegue(col1);
 		ac1.setDate(LocalDate.of(2020, 12, 10));
-		ac1.setDepart("adrDepart1");
+		ac1.setDepart("Allée de l'Histoire, 44800 Saint-Herblain");
 		ac1.setHeureDepart(LocalTime.of(8, 0));
 		ac1.setImageUrl("imgVoiture");
 		ac1.setMarqueVoiture("Opel");
@@ -188,10 +188,10 @@ public class StartupListener {
 		acRepo.save(ac1);
 
 		AnnonceCovoiturage ac2 = new AnnonceCovoiturage();
-		ac2.setArrive("adrArrive2");
+		ac2.setArrive("Allée de l'Histoire, 44800 Saint-Herblain");
 		ac2.setCollegue(col9);
 		ac2.setDate(LocalDate.of(2020, 12, 9));
-		ac2.setDepart("adrDepart2");
+		ac2.setDepart("Avenue du Père Soulas, 34090 Montpellier");
 		ac2.setHeureDepart(LocalTime.of(8, 0));
 		ac2.setImageUrl("imgVoiture");
 		ac2.setMarqueVoiture("Peugeot");
@@ -203,10 +203,10 @@ public class StartupListener {
 		acRepo.save(ac2);
 
 		AnnonceCovoiturage ac3 = new AnnonceCovoiturage();
-		ac3.setArrive("adrArrive3");
+		ac3.setArrive("Allée de l'Histoire, 44800 Saint-Herblain");
 		ac3.setCollegue(col8);
 		ac3.setDate(LocalDate.of(2020, 12, 20));
-		ac3.setDepart("adrDepart3");
+		ac3.setDepart("Place de la Comédie, 34000 Montpellier");
 		ac3.setHeureDepart(LocalTime.of(8, 0));
 		ac3.setImageUrl("imgVoiture");
 		ac3.setMarqueVoiture("Renault");
@@ -219,10 +219,10 @@ public class StartupListener {
 		acRepo.save(ac3);
 
 		AnnonceCovoiturage ac4 = new AnnonceCovoiturage();
-		ac4.setArrive("adrArrive4");
+		ac4.setArrive("Place de la Comédie, 34000 Montpellier");
 		ac4.setCollegue(col8);
 		ac4.setDate(LocalDate.of(2020, 12, 20));
-		ac4.setDepart("adrDepart4");
+		ac4.setDepart("Rue de la Maternelle, 97650 M'Tsangamouji");
 		ac4.setHeureDepart(LocalTime.of(16, 0));
 		ac4.setImageUrl("imgVoiture");
 		ac4.setMarqueVoiture("Renault");
@@ -232,10 +232,10 @@ public class StartupListener {
 		acRepo.save(ac4);
 
 		AnnonceCovoiturage ac5 = new AnnonceCovoiturage();
-		ac5.setArrive("adrArrive5");
+		ac5.setArrive("Rue de la Maternelle, 97650 M'Tsangamouji");
 		ac5.setCollegue(col7);
 		ac5.setDate(LocalDate.of(2020, 12, 10));
-		ac5.setDepart("adrDepart1");
+		ac5.setDepart("Place de la Comédie, 34000 Montpellier");
 		ac5.setHeureDepart(LocalTime.of(8, 0));
 		ac5.setImageUrl("imgVoiture");
 		ac5.setMarqueVoiture("Seat");

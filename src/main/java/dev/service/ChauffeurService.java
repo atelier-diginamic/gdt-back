@@ -71,6 +71,7 @@ public class ChauffeurService {
 		} else {
 			rcRepo.save(new RoleCollegue(ch.getInfo(), enumeration.Role.ROLE_CHAUFFEUR));
 		}
+		ch.setMatricule(genMatricule());
 		chaufRepo.save(ch);
 		return this.getDtoRep(ch);
 	}
@@ -106,6 +107,16 @@ public class ChauffeurService {
 		ch.setTelephone(chDtoQ.getTelephone());
 		ch.setUrlImage(chDtoQ.getUrlImage());
 		return ch;
+	}
+	private String genMatricule() {
+		 String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; 
+		    String matricule = "";
+		    for(int i=0;i<12;i++)
+		    {
+		       int j = (int)Math.floor(Math.random() * 36);
+		       matricule += chars.charAt(j);
+		    }
+		return matricule;
 	}
 
 }

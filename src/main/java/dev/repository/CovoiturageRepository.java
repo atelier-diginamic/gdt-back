@@ -21,6 +21,8 @@ public interface CovoiturageRepository extends JpaRepository<AnnonceCovoiturage,
 
 	List<AnnonceCovoiturage> findByDate(LocalDate date);
 
+	List<AnnonceCovoiturage> findByDepartAndArriveAndDate(String depart, String arrive, LocalDate parse);
+
 
 }
 

@@ -99,7 +99,21 @@ public class CovoiturageService {
 		}
 		return list;
 	}
-
+	/**
+	 * recherche un covoiturage
+	 * @param depart
+	 * @param arrive
+	 * @param date
+	 * @return
+	 */
+	public Object search(String depart, String arrive, String date) {
+		List<AnnonceCovoiturageDtoRep> list=new ArrayList<AnnonceCovoiturageDtoRep>();
+		for (AnnonceCovoiturage ac : covRepo.findByDepartAndArriveAndDate(depart,arrive,LocalDate.parse(date))) {
+			list.add(this.getDtoRep(ac));
+		}
+		return list;
+	}
+	
 	/**
 	 * listes les annonces par createur
 	 * 
@@ -260,5 +274,7 @@ public class CovoiturageService {
 		return ac;
 
 	}
+
+
 
 }

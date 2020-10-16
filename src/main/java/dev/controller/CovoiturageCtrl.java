@@ -42,6 +42,11 @@ public class CovoiturageCtrl {
 		return ResponseEntity.ok().body(covServ.getBy(type, value));
 	}
 
+	@GetMapping(params = { "depart", "arrive", "date" })
+	public ResponseEntity<?> search(@RequestParam String depart, @RequestParam String arrive, @RequestParam String date) {
+		return ResponseEntity.ok().body(covServ.search(depart, arrive,date));
+	}
+	
 	@GetMapping("/reservation")
 	public ResponseEntity<?> getReservations(@RequestParam int id) {
 		return ResponseEntity.ok().body(covServ.getReservations(id));
